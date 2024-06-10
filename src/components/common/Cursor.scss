@@ -1,0 +1,40 @@
+body {
+  cursor: none;
+}
+
+.cursor {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+
+  div {
+    position: absolute;
+  }
+
+  &#mainCursor div {
+    background-color: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 10px;
+  }
+
+  &#subCursor div {
+    border: white 1px solid;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+  }
+
+  &#bgCursor {
+    z-index: -100;
+    div {
+      filter: blur(15vmin);
+      border-radius: 1000px;
+      width: 60vmin;
+      height: 60vmin;
+      background-image: radial-gradient(circle at 50% 100%, rgba(230, 100, 100, 0.3), rgba(145, 152, 229, 0.3));
+    }
+  }
+}
