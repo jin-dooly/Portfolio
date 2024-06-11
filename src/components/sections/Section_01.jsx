@@ -32,6 +32,68 @@ function SECTION_01() {
       },
     });
 
+    gsap.to([".b1", ".b5", ".b11", ".b16"], {
+      y: "10",
+      repeat: -1,
+      duration: 2,
+      yoyoEase: "none",
+      scrollTrigger: {
+        trigger: ".section-01",
+        toggleActions: "play reset play reset",
+        end: "1 top",
+      },
+    });
+
+    gsap.to([".b2", ".b6", ".b12", ".b17"], {
+      y: "-10",
+      repeat: -1,
+      duration: 2.2,
+      yoyoEase: "none",
+      scrollTrigger: {
+        trigger: ".section-01",
+        toggleActions: "play reset play reset",
+        end: "1 top",
+      },
+    });
+
+    gsap.to([".b3", ".b7", ".b13", ".b18"], {
+      y: "14",
+      repeat: -1,
+      duration: 2.5,
+      yoyoEase: "none",
+      scrollTrigger: {
+        trigger: ".section-01",
+        toggleActions: "play reset play reset",
+        end: "1 top",
+      },
+    });
+
+    gsap.to([".b4", ".b9", ".b14"], {
+      y: "-8",
+      repeat: -1,
+      duration: 2.2,
+      delay: 1,
+      yoyoEase: "none",
+      scrollTrigger: {
+        trigger: ".section-01",
+        toggleActions: "play reset play reset",
+        end: "1 top",
+      },
+    });
+
+    gsap.to([".b8", ".b15"], {
+      y: "9",
+      repeat: -1,
+      duration: 2,
+      delay: 1.5,
+      yoyoEase: "none",
+      scrollTrigger: {
+        trigger: ".section-01",
+        toggleActions: "play reset play reset",
+        end: "1 top",
+      },
+    });
+
     gsap.to(".b1", {
       ...gsapOptions,
       x: "-200%",

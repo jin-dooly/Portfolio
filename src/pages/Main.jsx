@@ -4,6 +4,7 @@ import Cursor from "../components/common/Cursor";
 import SECTION_01 from "../components/sections/Section_01";
 import Header from "../components/layout/Header";
 import SECTION_02 from "../components/sections/Section_02";
+import SECTION_03 from "../components/sections/Section_03";
 
 function Main() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -17,6 +18,7 @@ function Main() {
       <Header />
       <SECTION_01 />
       <SECTION_02 />
+      <SECTION_03 />
       <Cursor x={position.x} y={position.y} />
     </div>
   );
