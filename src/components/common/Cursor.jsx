@@ -7,7 +7,7 @@ function Cursor({ x, y }) {
     gsap.to(["#subCursor", "#bgCursor"], {
       x,
       y,
-      duration: 0.35,
+      duration: 0.33,
     });
   }, [x, y]);
 

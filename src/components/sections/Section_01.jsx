@@ -167,7 +167,7 @@ function SECTION_01() {
   });
 
   return (
-    <section id="intro" className="section section-01">
+    <section id="begin" className="section section-01">
       <BubbleSingle1 className="bubble b1" />
       <BubbleDouble3 className="bubble b2" />
       <BubbleSingle1 className="bubble b3" />

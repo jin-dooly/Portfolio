@@ -14,10 +14,10 @@ body {
   }
 
   &#mainCursor div {
-    background-color: white;
-    width: 6px;
-    height: 6px;
-    border-radius: 10px;
+    width: 12px;
+    height: 12px;
+    background-image: url("../../assets/images/star_default.svg");
+    background-size: contain;
   }
 
   &#subCursor div {
