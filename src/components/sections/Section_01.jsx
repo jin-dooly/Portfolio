@@ -1,4 +1,5 @@
 import "./Section_01.scss";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -10,13 +11,12 @@ import { ReactComponent as BubbleDouble1 } from "../../assets/images/bubble/bubb
 import { ReactComponent as BubbleDouble2 } from "../../assets/images/bubble/bubble_double_2.svg";
 import { ReactComponent as BubbleDouble3 } from "../../assets/images/bubble/bubble_double_3.svg";
 import { ReactComponent as BubbleDouble4 } from "../../assets/images/bubble/bubble_double_4.svg";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const gsapOptions = {
   scrollTrigger: {
-    trigger: ".section2",
+    trigger: ".section-02",
     scrub: 1,
   },
   duration: 1,
@@ -27,7 +27,7 @@ function SECTION_01() {
     gsap.to(".section-01 .title", {
       scale: 0.5,
       scrollTrigger: {
-        trigger: ".section2",
+        trigger: ".section-02",
         scrub: 1,
       },
     });

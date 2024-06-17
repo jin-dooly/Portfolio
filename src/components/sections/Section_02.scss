@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 100px;
+  column-gap: 120px;
 
   .contents {
     width: 40%;
@@ -12,7 +12,7 @@
       font-weight: 900;
 
       .point {
-        background: linear-gradient(to right, #c673cb, #8faadc);
+        background: linear-gradient(to right, #7052c5, #a59bc0);
         background-clip: text;
         color: transparent;
       }
@@ -22,7 +22,7 @@
       font-weight: 300;
       letter-spacing: 0.03em;
       .point {
-        color: #f99ddc;
+        color: #cebcff;
       }
     }
   }
@@ -30,6 +30,7 @@
   .image-box {
     width: 20%;
     height: 50%;
+    opacity: 90%;
 
     img {
       width: 100%;

@@ -8,16 +8,9 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 10000;
-
+  pointer-events: none;
   div {
     position: absolute;
-  }
-
-  &#mainCursor div {
-    width: 12px;
-    height: 12px;
-    background-image: url("../../assets/images/star_default.svg");
-    background-size: contain;
   }
 
   &#subCursor div {
@@ -28,13 +21,13 @@ body {
   }
 
   &#bgCursor {
-    z-index: -100;
+    z-index: -1;
     div {
       filter: blur(15vmin);
       border-radius: 1000px;
       width: 60vmin;
       height: 60vmin;
-      background-image: radial-gradient(circle at 50% 100%, rgba(230, 100, 100, 0.3), rgba(145, 152, 229, 0.3));
+      background: #5c4a8e7b;
     }
   }
 }

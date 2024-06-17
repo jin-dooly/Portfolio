@@ -1,33 +1,25 @@
 import "./Section_02.scss";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// 비눗방울 svg
-// import { ReactComponent as BubbleSingle1 } from "../../assets/images/bubble/bubble_single_1.svg";
-// import { ReactComponent as BubbleSingle2 } from "../../assets/images/bubble/bubble_single_2.svg";
-// import { ReactComponent as BubbleSingle3 } from "../../assets/images/bubble/bubble_single_3.svg";
-// import { ReactComponent as BubbleDouble1 } from "../../assets/images/bubble/bubble_double_1.svg";
-// import { ReactComponent as BubbleDouble2 } from "../../assets/images/bubble/bubble_double_2.svg";
-// import { ReactComponent as BubbleDouble3 } from "../../assets/images/bubble/bubble_double_3.svg";
-// import { ReactComponent as BubbleDouble4 } from "../../assets/images/bubble/bubble_double_4.svg";
-import profile from "../../assets/images/profile.jpg";
-import { useGSAP } from "@gsap/react";
+import profile from "../../assets/images/profile.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function SECTION_02() {
   useGSAP(() => {
-    gsap.from(".contents", {
+    gsap.from("#introduction > .contents", {
       scale: 1.3,
       scrollTrigger: {
-        trigger: ".section2",
+        trigger: ".section-02",
         scrub: 1,
       },
     });
-    gsap.to(".image-box", {
-      rotation: 10,
+    gsap.to("#introduction .image-box", {
+      rotation: 8,
       scrollTrigger: {
-        trigger: ".section2",
+        trigger: ".section-02",
         scrub: 1,
       },
     });
@@ -55,7 +47,7 @@ function SECTION_02() {
         </div>
       </div>
       <div className="image-box">
-        <img src={profile} />
+        <img src={profile} alt="프로필 사진" />
       </div>
     </section>
   );

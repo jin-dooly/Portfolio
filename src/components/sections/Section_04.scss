@@ -1,0 +1,93 @@
+.section-04 {
+  background: linear-gradient(#5c4a8e, #ffffff 50%, #fff);
+  padding: 100vh 0 200vh;
+  width: 150%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  > h1 {
+    color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 70px;
+    right: -40px;
+    transform: rotate(90deg);
+    font-weight: 900;
+  }
+
+  .rectangle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+
+    &.default {
+      opacity: 1;
+    }
+
+    &.true {
+      opacity: 1;
+    }
+
+    transition: opacity 0.3s;
+  }
+
+  .contents {
+    opacity: 0;
+    position: fixed;
+    height: 80vh;
+    top: 10vh;
+    left: 30px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 28px;
+
+    .item {
+      height: 20vh;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 1;
+
+      .title {
+        display: flex;
+        width: max-content;
+        height: calc(20vh - 30px);
+        align-items: center;
+        flex-shrink: 1;
+        svg {
+          height: 100%;
+          width: auto;
+        }
+      }
+
+      .tags {
+        font-family: "Elice DX Neolli";
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        column-gap: 24px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .detail-modal {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 100px;
+    z-index: 2;
+    background-color: #fff;
+    color: #000;
+    box-shadow: -11px 4px 10px 3px rgba(0, 0, 0, 0.25);
+
+    .close {
+      position: fixed;
+      top: 30px;
+      right: 130px;
+      &:hover path {
+        fill: #5c4a8e;
+      }
+    }
+  }
+}

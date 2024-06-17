@@ -1,0 +1,122 @@
+.section-03 {
+  background: linear-gradient(#000, #5c4a8e);
+  width: 600vw;
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  z-index: 1;
+
+  svg {
+    position: absolute;
+
+    &.cloud-01 {
+      top: 40vh;
+      left: 50vw;
+    }
+
+    &.cloud-02 {
+      bottom: -90px;
+      left: 100vw;
+    }
+    &.cloud-03 {
+      bottom: 10vh;
+      left: 200vw;
+    }
+    &.cloud-04 {
+      bottom: -40px;
+      left: 200vw;
+    }
+    &.cloud-05 {
+      bottom: 8vh;
+      left: 380vw;
+    }
+  }
+
+  .title {
+    position: absolute;
+    top: 40vh;
+    left: 60vw;
+    font-family: "PyeongChangPeace";
+    font-size: 4em;
+    color: #7052c5;
+
+    .light {
+      color: #a59bc0;
+    }
+  }
+
+  .screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    &.s1 {
+      margin-top: 15vh;
+    }
+    &.s2 {
+      .backend {
+        bottom: 36vh;
+        left: 30%;
+        position: absolute;
+        .items {
+          padding-bottom: 60px;
+        }
+      }
+      .app {
+        bottom: 15vh;
+        left: 65%;
+        position: absolute;
+      }
+    }
+    &.s3 {
+      margin-top: 15vh;
+      .etc {
+        width: 550px;
+      }
+    }
+
+    .box {
+      width: 500px;
+      max-height: 80vh;
+      background-color: #000;
+      border: 1px #a59bc0 solid;
+
+      h2 {
+        font-size: 2em;
+        font-family: "PyeongChangPeace";
+        font-weight: 100;
+        color: #7052c5;
+        padding: 12px 18px;
+        border-bottom: 1px #a59bc0 solid;
+      }
+
+      .items {
+        padding: 24px 18px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 34px;
+
+        li {
+          list-style: none;
+          color: #e8dfff;
+
+          .stack {
+            font-size: 1.2em;
+            font-weight: bold;
+          }
+
+          .desc {
+            color: #ede7ff89;
+            font-size: 0.9em;
+            font-weight: 100;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+  }
+}
