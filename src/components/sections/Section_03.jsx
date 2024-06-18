@@ -11,7 +11,7 @@ import { ReactComponent as CloudDouble2 } from "../../assets/images/cloud/cloud_
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SECTION_03() {
+function SECTION_03({ setRef }) {
   useGSAP(() => {
     let screen = gsap.utils.toArray("#stack .screen");
 
@@ -83,7 +83,7 @@ function SECTION_03() {
   });
 
   return (
-    <section id="stack" className="section section-03">
+    <section id="stack" ref={setRef} className="section section-03">
       <CloudDouble1 className="cloud-01" />
       <CloudDouble2 className="cloud-02" />
       <CloudSingle1 className="cloud-03" />

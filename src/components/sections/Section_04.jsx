@@ -1,5 +1,5 @@
 import "./Section_04.scss";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -23,7 +23,7 @@ import { ReactComponent as CloseIcon } from "../../assets/images/close.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SECTION_04() {
+function SECTION_04({ setRef }) {
   const [curItem, setCurItem] = useState("");
   const [selected, setSelected] = useState("");
   const openModalRef = useRef();
@@ -36,7 +36,7 @@ function SECTION_04() {
       ease: "circ.inOut",
       scrollTrigger: {
         trigger: ".section-04",
-        start: "center top",
+        start: "center-=1px center",
         end: "bottom bottom",
         toggleActions: "play reverse play reverse",
       },
@@ -47,9 +47,9 @@ function SECTION_04() {
       ease: "circ.inOut",
       scrollTrigger: {
         trigger: ".section-04",
-        start: "center top",
+        start: "center-=1px center",
         end: "bottom bottom",
-        toggleActions: "play reverse none none",
+        toggleActions: "play reverse play reverse",
       },
     });
 
@@ -57,7 +57,7 @@ function SECTION_04() {
       opacity: 1,
       scrollTrigger: {
         trigger: ".section-04",
-        start: "center-=1px top",
+        start: "center-=2px center",
         end: "bottom bottom",
         toggleActions: "play reverse play reverse",
       },
@@ -70,7 +70,7 @@ function SECTION_04() {
       duration: 0.5,
       scrollTrigger: {
         trigger: ".section-04",
-        start: "center top",
+        start: "center-=1px center",
         end: "bottom bottom",
         markers: 1,
         toggleActions: "none reverse none reverse",
@@ -100,8 +100,16 @@ function SECTION_04() {
     openModalRef.current.reverse();
   };
 
+  useEffect(() => {
+    if (selected) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [selected]);
+
   return (
-    <section id="project" className="section section-04">
+    <section id="project" ref={setRef} className="section section-04">
       <h1>PROJECT</h1>
 
       <Rectangle1 className="rectangle default" />
@@ -156,7 +164,8 @@ function SECTION_04() {
       </div>
 
       <div className="detail-modal">
-        {selected}
+        <header>{selected}</header>
+        <div className="body"></div>
         <CloseIcon className="close" onClick={handleClose} />
       </div>
     </section>

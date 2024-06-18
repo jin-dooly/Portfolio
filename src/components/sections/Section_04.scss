@@ -1,6 +1,6 @@
 .section-04 {
-  background: linear-gradient(#5c4a8e, #ffffff 50%, #fff);
-  padding: 100vh 0 200vh;
+  background: linear-gradient(#5c4a8e, #ffffff 30%, #fff);
+  padding: 150vh 0 200vh;
   width: 150%;
   height: 100vh;
   overflow: hidden;
@@ -71,8 +71,8 @@
   }
 
   .detail-modal {
-    width: 100%;
-    height: 100vh;
+    width: calc(100% - 100px);
+    height: calc(100vh - 60px);
     position: fixed;
     top: 60px;
     left: 100px;
@@ -80,13 +80,18 @@
     background-color: #fff;
     color: #000;
     box-shadow: -11px 4px 10px 3px rgba(0, 0, 0, 0.25);
+    overflow-y: auto;
+
+    .body {
+      height: 80vh;
+    }
 
     .close {
       position: fixed;
       top: 30px;
       right: 130px;
       &:hover path {
-        fill: #5c4a8e;
+        fill: #000000;
       }
     }
   }

@@ -7,7 +7,7 @@ import profile from "../../assets/images/profile.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SECTION_02() {
+function SECTION_02({ setRef }) {
   useGSAP(() => {
     gsap.from("#introduction > .contents", {
       scale: 1.3,
@@ -26,7 +26,7 @@ function SECTION_02() {
   });
 
   return (
-    <section id="introduction" className="section section-02">
+    <section id="introduction" ref={setRef} className="section section-02">
       <div className="contents">
         <h1>
           이진이 | <span className="point">몰입하는 개발자</span>

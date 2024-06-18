@@ -5,11 +5,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function SECTION_05() {
+function SECTION_05({ setRef }) {
   useGSAP(() => {});
 
   return (
-    <section id="contect" className="section section-05">
+    <section id="contect" ref={setRef} className="section section-05">
       <div className="contents">
         <div className="item">
           <p className="title">MICHI</p>

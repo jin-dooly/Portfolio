@@ -22,7 +22,7 @@ const gsapOptions = {
   duration: 1,
 };
 
-function SECTION_01() {
+function SECTION_01({ setRef }) {
   useGSAP(() => {
     gsap.to(".section-01 .title", {
       scale: 0.5,
@@ -229,7 +229,7 @@ function SECTION_01() {
   });
 
   return (
-    <section id="begin" className="section section-01">
+    <section id="begin" ref={setRef} className="section section-01">
       <BubbleSingle1 className="bubble b1" />
       <BubbleDouble3 className="bubble b2" />
       <BubbleSingle1 className="bubble b3" />
