@@ -25,5 +25,8 @@
   font-style: normal;
 }
 
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+/* Noto Sans KR */
+
 @import url("https://font.elice.io/css?family=Elice+DX+Neolli");
 /* Elice DX Neolli */
