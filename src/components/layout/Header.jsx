@@ -4,6 +4,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useEffect, useRef, useState } from "react";
 
+import { ReactComponent as BubbleSingle1 } from "../../assets/images/bubble/bubble_single_1.svg";
+
 function Header({ scrollRef }) {
   const showAnim = useRef();
   const timer = useRef();
@@ -79,7 +81,12 @@ function Header({ scrollRef }) {
   return (
     <header id="mainHeader" onMouseOver={() => setOpen((cur) => cur + 1)}>
       <div className="logo" data-link={0} onClick={handleClick}>
-        main title
+        <BubbleSingle1 />
+        <p>
+          2024 이진이
+          <br />
+          포트폴리오
+        </p>
       </div>
       <div className="menu">
         <span className="item" data-link={1} onClick={handleClick}>

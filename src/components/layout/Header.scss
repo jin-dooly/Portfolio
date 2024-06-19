@@ -6,14 +6,18 @@
   height: 80px;
   display: flex;
   justify-content: center;
+  align-items: center;
   background: linear-gradient(rgba(0, 0, 0, 1) 30%, rgba(0, 0, 0, 0.7) 80%, rgba(0, 0, 0, 0));
   z-index: 10;
 
   .logo {
     position: absolute;
     left: 0;
-    line-height: 80px;
     padding: 0 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+    column-gap: 10px;
   }
 
   .menu {
@@ -23,6 +27,11 @@
 
     .item {
       padding: 0 10px;
+
+      &:hover {
+        color: #bd94fb;
+        font-weight: 900;
+      }
     }
   }
 }

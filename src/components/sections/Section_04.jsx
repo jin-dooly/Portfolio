@@ -168,7 +168,7 @@ function SECTION_04({ setRef }) {
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         {selected && <ModalContents selected={selected} />}
       </div>
-      <div className="button-box">
+      <div className="button-box" onClick={(e) => e.stopPropagation()}>
         <CloseIcon className="button close" onClick={handleClose} />
         <a href={gitLink[selected]} target="_blank" rel="noreferrer" className="button github">
           <GithubIcon />
