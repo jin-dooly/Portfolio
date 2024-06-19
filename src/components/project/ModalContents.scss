@@ -1,0 +1,153 @@
+.modal-contents {
+  width: 100%;
+  height: 100%;
+
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex-row {
+    display: flex;
+  }
+
+  header {
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+
+    .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+
+    .front {
+      width: 100%;
+      height: 100%;
+      padding: 20px 100px;
+      box-sizing: border-box;
+      backdrop-filter: blur(80px);
+      background-color: rgba(255, 255, 255, 0.2);
+
+      justify-content: center;
+      align-items: center;
+      row-gap: 10px;
+
+      .title {
+        align-items: flex-end;
+        column-gap: 20px;
+      }
+
+      .logo {
+        width: auto;
+        height: 60px;
+      }
+
+      h2 {
+        font-size: 2.4em;
+        line-height: 1em;
+      }
+
+      .tags {
+        column-gap: 10px;
+
+        div {
+          border-radius: 5px;
+          background: #333;
+          color: #fff;
+          padding: 4px 8px 0;
+        }
+      }
+    }
+  }
+
+  .body {
+    width: 100%;
+    max-width: 740px;
+    padding: 100px 20px;
+    margin: auto;
+    box-sizing: border-box;
+    row-gap: 100px;
+
+    .section {
+      height: fit-content;
+      box-sizing: border-box;
+
+      h2 {
+        margin-bottom: 20px;
+        padding-bottom: 6px;
+        border-bottom: 2px #5c4a8e3e solid;
+      }
+
+      h3,
+      p {
+        margin-bottom: 10px;
+        font-family: "Noto Sans KR";
+        line-height: 1.7;
+      }
+
+      ul,
+      ol {
+        padding-left: 20px;
+        font-family: "Noto Sans KR";
+        margin: 6px 0;
+
+        li {
+          margin-bottom: 6px;
+          line-height: 1.7;
+        }
+      }
+
+      .buttons {
+        column-gap: 10px;
+        margin-bottom: 30px;
+
+        .button {
+          background-color: #e8e0fd23;
+          color: #333;
+          line-height: 1.2;
+          padding: 10px 15px 6px;
+          border-radius: 20px;
+          font-size: 1.1em;
+          border: 1px #5c4a8e solid;
+
+          &:hover {
+            background-color: #e8e0fd;
+          }
+
+          &.selected {
+            background-color: #5c4a8e;
+            color: #fff;
+          }
+        }
+      }
+
+      .code {
+        font-size: 0.8em;
+        font-family: roboto;
+        color: #eb5757;
+        padding: 0.2em 0.4em;
+        background-color: rgba(135, 131, 120, 0.15);
+        border-radius: 4px;
+      }
+
+      &.work {
+        min-height: 400px;
+
+        > ul > li {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}

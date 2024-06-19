@@ -22,6 +22,7 @@ function Header({ scrollRef }) {
       background: "linear-gradient(rgba(0, 0, 0, 0.8) , rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0))",
       scrollTrigger: {
         trigger: ".section-04",
+        endTrigger: ".section-05",
         toggleActions: "play reverse play reverse",
       },
     });
@@ -91,7 +92,7 @@ function Header({ scrollRef }) {
           프로젝트
         </span>
         <span className="item" data-link={4} onClick={handleClick}>
-          교육
+          연락처
         </span>
       </div>
     </header>

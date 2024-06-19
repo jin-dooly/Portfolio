@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // 구름 svg
 import { ReactComponent as CloudSingle1 } from "../../assets/images/cloud/cloud_single_1.svg";
+import { ReactComponent as CloudSingle2 } from "../../assets/images/cloud/cloud_single_2.svg";
 import { ReactComponent as CloudSingle3 } from "../../assets/images/cloud/cloud_single_3.svg";
 import { ReactComponent as CloudDouble1 } from "../../assets/images/cloud/cloud_double_1.svg";
 import { ReactComponent as CloudDouble2 } from "../../assets/images/cloud/cloud_double_2.svg";
@@ -61,13 +62,24 @@ function SECTION_03({ setRef }) {
     });
 
     gsap.to("#stack .cloud-04", {
-      xPercent: -112 * (screen.length + 2),
+      xPercent: -110 * 9,
       duration: 1,
       scrollTrigger: {
         trigger: ".section-03",
         scrub: 1,
         start: "top top",
-        endTrigger: ".section-04",
+        end: "bottom+=800 top",
+      },
+    });
+
+    gsap.to("#stack .cloud-05", {
+      xPercent: -100 * 6,
+      duration: 1,
+      scrollTrigger: {
+        trigger: ".section-03",
+        scrub: 1,
+        start: "top top",
+        end: "bottom+=800 top",
       },
     });
 
@@ -88,6 +100,7 @@ function SECTION_03({ setRef }) {
       <CloudDouble2 className="cloud-02" />
       <CloudSingle1 className="cloud-03" />
       <CloudSingle3 className="cloud-04" />
+      <CloudSingle2 className="cloud-05" />
 
       <h1 className="title">
         <span className="light">USED</span> STACK
