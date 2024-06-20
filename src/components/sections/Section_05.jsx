@@ -9,8 +9,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 function SECTION_05({ setRef }) {
   useGSAP(() => {
-    gsap.to("#contact .box", {
-      top: 0,
+    gsap.from("#contact .box", {
+      top: "100%",
       scrollTrigger: {
         trigger: "#contact",
         toggleActions: "play reverse play reverse",
