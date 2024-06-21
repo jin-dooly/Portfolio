@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.8b34e753.css",
-    "main.js": "/Portfolio/static/js/main.10641d6e.js",
+    "main.css": "/Portfolio/static/css/main.bb5f428a.css",
+    "main.js": "/Portfolio/static/js/main.2ee79f40.js",
     "static/media/Rectangle_Dok.svg": "/Portfolio/static/media/Rectangle_Dok.7c80782be50110309c30cc03c244757a.svg",
     "static/media/Rectangle_Teenybox.svg": "/Portfolio/static/media/Rectangle_Teenybox.d12e0ed6880d7356d610ba61b85b0897.svg",
     "static/media/Rectangle_Michi.svg": "/Portfolio/static/media/Rectangle_Michi.df6cfa996733ad9981ae6189280ba1dc.svg",
@@ -36,11 +36,11 @@
     "index.html": "/Portfolio/index.html",
     "static/media/star_purple.svg": "/Portfolio/static/media/star_purple.91826de92d66c3053353ad10187b73e7.svg",
     "static/media/Rectangle_1.svg": "/Portfolio/static/media/Rectangle_1.2edf6715a65e7745a9c3a4e824fd930a.svg",
-    "main.8b34e753.css.map": "/Portfolio/static/css/main.8b34e753.css.map",
-    "main.10641d6e.js.map": "/Portfolio/static/js/main.10641d6e.js.map"
+    "main.bb5f428a.css.map": "/Portfolio/static/css/main.bb5f428a.css.map",
+    "main.2ee79f40.js.map": "/Portfolio/static/js/main.2ee79f40.js.map"
   },
   "entrypoints": [
-    "static/css/main.8b34e753.css",
-    "static/js/main.10641d6e.js"
+    "static/css/main.bb5f428a.css",
+    "static/js/main.2ee79f40.js"
   ]
 }
