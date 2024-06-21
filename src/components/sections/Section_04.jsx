@@ -114,6 +114,8 @@ function SECTION_04({ setRef }) {
 
   return (
     <section id="project" ref={setRef} className="section section-04" onClick={handleClose}>
+      <h1>PROJECT</h1>
+
       <Rectangle1 className="rectangle default" />
       <RectangleMichi className={`rectangle ${curItem === "michi"}`} />
       <RectangleDok className={`rectangle ${curItem === "dok"}`} />

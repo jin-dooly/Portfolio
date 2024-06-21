@@ -9,10 +9,11 @@
   > h1 {
     color: rgba(0, 0, 0, 0.1);
     position: fixed;
-    top: 70px;
-    right: -40px;
-    transform: rotate(90deg);
+    bottom: 70px;
+    right: -30px;
+    transform: rotate(-90deg);
     font-weight: 900;
+    font-family: "PyeongChangPeace";
   }
 
   .rectangle {
