@@ -157,7 +157,7 @@ function SECTION_03({ setRef }) {
           <ul className="items">
             <li className="item">
               <p className="stack">React Native</p>
-              <p className="desc">웹 표준에 맞게 HTML 문법을 사용하고, CSS로 자유롭게 웹페이지를 스타일링 할 수 있습니다.</p>
+              <p className="desc">안드로이드와 IOS에서 호환되는 앱을 만들기 위해 사용하였습니다. 리액트 네이티브 프로젝트 내에서 리액트 문법을 자유롭게 사용할 수 있습니다.</p>
             </li>
           </ul>
         </div>
