@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>시안 C 돋보기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<style>
+:root { --bg: #f4f5f7; --ink: #0d0f12; --ink-2: #6b717b; --mute: #d9dce1; --mute-2: #c4c8cf; --x: #3048ff; --x-soft: rgba(48,72,255,.1); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.7 "IBM Plex Sans KR", sans-serif; word-break: keep-all; }
+.hero { position: relative; min-height: 100svh; overflow: hidden; cursor: none; }
+.intro { position: absolute; left: clamp(16px, 5vw, 72px); top: 48px; z-index: 5; pointer-events: none; max-width: 520px; }
+.intro p { margin: 0 0 12px; font-size: 15px; color: var(--ink-2); }
+h1 { font: 700 clamp(44px, 6.4vw, 92px)/1.05 "IBM Plex Sans KR"; letter-spacing: -0.05em; margin: 0 0 20px; }
+.intro .hint { color: var(--x); font-weight: 500; }
+
+/* 두 겹: 보통 화면 / 개발자가 본 화면 */
+.layer { position: absolute; inset: 0; }
+.seen { clip-path: circle(0 at 50% 50%); background: var(--bg); }
+.seen .screen { background: #fff; border-color: var(--x); }
+.ring { position: absolute; width: 260px; height: 260px; margin: -130px; border-radius: 50%; border: 2px solid var(--x); pointer-events: none; z-index: 6; box-shadow: 0 0 0 9999px rgba(244,245,247,0); transition: opacity .2s; }
+.ring::after { content: "관찰 중"; position: absolute; left: 50%; bottom: -30px; translate: -50% 0; font-size: 12px; font-weight: 500; color: var(--x); white-space: nowrap; }
+
+/* 화면 셋: 비행기 지도, 입장권, 키오스크 */
+.screens { position: absolute; inset: 0; }
+.screen { position: absolute; border: 1.5px solid var(--mute-2); border-radius: 22px; background: #fbfbfc; overflow: hidden; }
+.s1 { width: 280px; height: 560px; right: 34%; top: 30%; }
+.s2 { width: 250px; height: 500px; right: 8%; top: 12%; }
+.s3 { width: 440px; height: 300px; right: 4%; top: 64%; border-radius: 12px; }
+.bar { position: absolute; background: var(--mute); border-radius: 6px; }
+.circ { position: absolute; border-radius: 50%; border: 1.5px solid var(--mute-2); }
+.key { position: absolute; bottom: 14px; left: 14px; right: 14px; height: 110px; display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
+.key i { background: var(--mute); border-radius: 4px; }
+
+/* 개발자 메모 (돋보기 안에서만 보임) */
+.ann { position: absolute; font-size: 13px; line-height: 1.45; color: var(--x); font-weight: 500; width: 190px; }
+.ann b { display: block; font-size: 15px; font-weight: 700; }
+.box { position: absolute; border: 1.5px dashed var(--x); background: var(--x-soft); border-radius: 6px; }
+.seen .bar { background: #e3e7ff; }
+.seen .circ { border-color: var(--x); }
+.seen .key i { background: #e3e7ff; }
+
+.below { padding: 96px clamp(16px, 5vw, 72px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid var(--mute-2); }
+.below h2 { font-size: 22px; margin: 0 0 8px; letter-spacing: -0.02em; }
+.below p { color: var(--ink-2); margin: 0; font-size: 15px; }
+@media (max-width: 900px) {
+  .hero { cursor: auto; min-height: 980px; }
+  .s1 { right: auto; left: 16px; top: 380px; } .s2 { right: 16px; top: 440px; } .s3 { display: none; }
+  .below { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<section class="hero" id="hero">
+  <div class="intro">
+    <p>프론트엔드 개발자 이진이</p>
+    <h1>같은 화면,<br />다른 것을 봅니다</h1>
+    <p>현장을 관찰하는 개발자. 사용자가 실제로 화면을 쓰는 곳에서 문제를 찾고, 그 흐름을 UI로 옮깁니다.</p>
+    <p class="hint">화면 위로 마우스를 움직여 보세요</p>
+  </div>
+
+  <!-- 보통 화면 -->
+  <div class="layer plain"><div class="screens" data-screens>
+    <div class="screen s1"><div class="circ" style="left:40px;top:120px;width:200px;height:200px"></div><div class="circ" style="left:100px;top:180px;width:80px;height:80px"></div><div class="bar" style="left:80px;top:18px;width:120px;height:22px;border-radius:99px"></div><div class="bar" style="left:12px;right:12px;bottom:12px;height:110px;border-radius:16px"></div></div>
+    <div class="screen s2"><div class="bar" style="left:20px;top:30px;width:120px;height:18px"></div><div class="bar" style="left:20px;right:20px;top:70px;height:240px;border-radius:14px"></div><div class="bar" style="left:20px;right:20px;bottom:24px;height:52px;border-radius:12px"></div><div class="bar" style="right:16px;top:14px;width:22px;height:22px;border-radius:50%"></div></div>
+    <div class="screen s3"><div class="bar" style="left:14px;top:16px;right:14px;height:36px"></div><div class="key"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div></div>
+
+  <!-- 개발자가 본 화면 -->
+  <div class="layer seen" id="seen" aria-hidden="true"><div class="screens">
+    <div class="screen s1"><div class="circ" style="left:40px;top:120px;width:200px;height:200px"></div><div class="circ" style="left:100px;top:180px;width:80px;height:80px"></div><div class="bar" style="left:80px;top:18px;width:120px;height:22px;border-radius:99px"></div><div class="bar" style="left:12px;right:12px;bottom:12px;height:110px;border-radius:16px"></div>
+      <div class="box" style="left:130px;top:150px;width:60px;height:40px"></div>
+      <p class="ann" style="left:20px;top:330px"><b>6초 사이를 예측으로</b>속도, 방향, 선회율로 매 프레임 위치를 계산</p>
+      <p class="ann" style="left:60px;top:46px;width:170px">연결 상태: 실시간 / 재연결 / 지연</p>
+    </div>
+    <div class="screen s2"><div class="bar" style="left:20px;top:30px;width:120px;height:18px"></div><div class="bar" style="left:20px;right:20px;top:70px;height:240px;border-radius:14px"></div><div class="bar" style="left:20px;right:20px;bottom:24px;height:52px;border-radius:12px"></div><div class="bar" style="right:16px;top:14px;width:22px;height:22px;border-radius:50%"></div>
+      <div class="box" style="right:6px;top:4px;width:42px;height:42px;border-radius:50%"></div>
+      <p class="ann" style="left:24px;top:90px"><b>체인 등록을 기다리지 않기</b>현장 네트워크가 불안정해서 낙관적 업데이트로 즉시 입장</p>
+      <p class="ann" style="left:24px;top:330px;width:200px">닫기 버튼 터치 영역 확장</p>
+      <div class="box" style="left:16px;right:16px;bottom:20px;height:60px"></div>
+    </div>
+    <div class="screen s3"><div class="bar" style="left:14px;top:16px;right:14px;height:36px"></div><div class="key"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="box" style="left:10px;right:10px;bottom:10px;height:118px"></div>
+      <p class="ann" style="left:18px;top:62px;width:380px"><b>실기기에서만 안 뜨던 키보드</b>터치스크린에서 네이티브 키보드가 나오지 않아 React로 직접 구현</p>
+    </div>
+  </div></div>
+  <div class="ring" id="ring"></div>
+</section>
+
+<section class="below">
+  <div><h2>내 머리 위 비행기</h2><p>메인 사례. 아래로 문제, 우선순위, 방향 전환, 사용자 반응이 이어져요. 각 사례 첫머리에도 이 돋보기가 다시 나와요.</p></div>
+  <div><h2>UMF 입장권</h2><p>현장 상주, 300명 이상 장애 없이 입장</p></div>
+  <div><h2>AI 키오스크</h2><p>실기기 이슈, 3주 MVP</p></div>
+</section>
+
+<script>
+const hero = document.getElementById('hero'), seen = document.getElementById('seen'), ring = document.getElementById('ring');
+const R = 130;
+let tx = innerWidth * 0.68, ty = innerHeight * 0.45, x = tx, y = ty, user = false;
+function place() {
+  seen.style.clipPath = `circle(${R}px at ${x}px ${y}px)`;
+  ring.style.left = x + 'px'; ring.style.top = y + 'px';
+}
+hero.addEventListener('pointermove', (e) => {
+  const r = hero.getBoundingClientRect(); tx = e.clientX - r.left; ty = e.clientY - r.top; user = true;
+});
+hero.addEventListener('pointerdown', (e) => {
+  const r = hero.getBoundingClientRect(); tx = e.clientX - r.left; ty = e.clientY - r.top; user = true;
+});
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let t0 = performance.now();
+function loop(now) {
+  if (!user) { // 처음엔 돋보기가 스스로 화면을 훑음
+    const t = (now - t0) / 1000;
+    tx = hero.clientWidth * (0.66 + 0.18 * Math.sin(t * 0.5)); ty = hero.clientHeight * (0.5 + 0.22 * Math.sin(t * 0.8));
+  }
+  x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+  place();
+  requestAnimationFrame(loop);
+}
+if (still) { x = tx; y = ty; place(); hero.addEventListener('pointermove', () => { x = tx; y = ty; place(); }); }
+else requestAnimationFrame(loop);
+</script>
+</body>
+</html>

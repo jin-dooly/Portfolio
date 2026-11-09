@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>이진이 포트폴리오</title>
+  <meta name="description" content="현장을 관찰하는 프론트엔드 개발자 이진이의 포트폴리오" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- =========================================================
+     작성 가이드
+     - 점선 마젠타 상자(.todo)는 직접 채워야 하는 자리예요. 채운 뒤 상자째 지우거나 <p>로 바꾸세요.
+     - 일반 글씨는 이력서와 flight-overhead 기획서(docs/PLAN.md)에서 가져온 초안이에요. 다듬어서 쓰세요.
+     ========================================================= -->
+
+<!-- ============ HERO: 반경 지도 ============ -->
+<header class="hero" id="top">
+  <div class="hero-text">
+    <p class="hero-name">이진이 <span>프론트엔드 개발자, 경력 1년 5개월</span></p>
+    <h1>현장을<br />관찰하는<br />개발자</h1>
+    <p class="hero-lede">
+      사용자가 실제로 화면을 쓰는 곳에서 문제를 찾고, 그 흐름을 UI로 옮깁니다.
+      페스티벌 입장 현장에 상주했고, 키오스크 실기기에서만 드러난 문제를 직접 해결했고,
+      지금은 내 머리 위를 지나는 비행기를 실시간으로 보여주는 서비스를 만들고 있습니다.
+    </p>
+    <ul class="contact">
+      <li><a href="mailto:jj074567@gmail.com">jj074567@gmail.com</a></li>
+      <li><a href="tel:01077440745">010-7744-0745</a></li>
+      <li><a href="https://github.com/jin-dooly" target="_blank" rel="noopener">github.com/jin-dooly</a></li>
+    </ul>
+  </div>
+
+  <div class="radar" aria-label="경험 지도. 비행기를 누르면 해당 경험으로 이동해요.">
+    <div class="radar-chip" aria-hidden="true">
+      <span class="dot"></span> 반경 20km 안 <b id="count">4</b>대
+    </div>
+    <svg id="radar" viewBox="-260 -260 520 520" role="group">
+      <defs>
+        <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse" x="-260" y="-260">
+          <path d="M52 0H0V52" fill="none" class="grid-line" />
+        </pattern>
+        <path id="ring-path" d="M 0 -200 A 200 200 0 1 1 -0.01 -200" />
+        <radialGradient id="fade"><stop offset="0.55" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></radialGradient>
+        <mask id="grid-mask"><rect x="-260" y="-260" width="520" height="520" fill="url(#fade)" /></mask>
+      </defs>
+      <rect x="-260" y="-260" width="520" height="520" fill="url(#grid)" mask="url(#grid-mask)" />
+      <circle r="100" class="ring" />
+      <circle r="200" class="ring ring-outer" />
+      <text class="ring-label"><textPath href="#ring-path" startOffset="3%">20km</textPath></text>
+      <text class="ring-label" x="6" y="-104">10km</text>
+      <g class="me">
+        <circle r="18" class="me-halo" />
+        <circle r="6" class="me-dot" />
+        <text y="32" text-anchor="middle" class="me-label">지금 여기</text>
+      </g>
+      <g id="planes"></g>
+    </svg>
+    <p class="radar-coord" aria-hidden="true">37°29′N 127°07′E</p>
+  </div>
+
+  <!-- 비행기 목록 (지도의 비행기와 같은 대상, 키보드/스크린리더용 겸 범례) -->
+  <nav class="flight-list" aria-label="경험 목록">
+    <a href="#flight" data-id="flight"><span class="cs">JY101</span>내 머리 위 비행기<em>사이드 프로젝트</em></a>
+    <a href="#umf" data-id="umf"><span class="cs">EQ025</span>UMF 블록체인 입장권<em>이큐비알홀딩스</em></a>
+    <a href="#kiosk" data-id="kiosk"><span class="cs">EQ112</span>광주과학고 AI 키오스크<em>이큐비알홀딩스</em></a>
+    <a href="#memble" data-id="memble"><span class="cs">EQ045</span>Memble UX 개선 45건<em>이큐비알홀딩스</em></a>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ CASE 1: 내 머리 위 비행기 (메인) ============ -->
+<article class="case case-main" id="flight" data-case>
+  <header class="case-head">
+    <p class="case-cs">JY101 <span>2026.11, 1인 개발</span></p>
+    <h2>내 머리 위 비행기</h2>
+    <p class="case-sum">내 위치 상공 반경 20km를 지나는 비행기를 지도 위에 실시간으로 보여주는 웹 서비스</p>
+    <ul class="case-links">
+      <li><a href="https://flight-overhead.vercel.app" target="_blank" rel="noopener">서비스 열기</a></li>
+      <li><a href="https://github.com/jin-dooly/flight-overhead" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+    <p class="stack">React, TypeScript, Leaflet, Zustand, MQTT(mqtt.js, Aedes), Express, Vitest</p>
+    <figure class="shot">
+      <!-- ✏️ 대표 화면 GIF/이미지: assets/flight-main.gif 로 넣고 아래 div를 img로 바꾸세요
+           <img src="assets/flight-main.gif" alt="지도 위에서 비행기들이 부드럽게 움직이는 화면" /> -->
+      <div class="todo todo-media">대표 화면 GIF (지도 모드 + 따라가기). 낮 시간대 인천공항 근처에서 녹화 추천</div>
+    </figure>
+  </header>
+
+  <div class="route">
+    <ol class="route-rail" aria-hidden="true">
+      <li data-step="1">문제 발견</li>
+      <li data-step="2">우선순위</li>
+      <li data-step="3">방향 전환</li>
+      <li data-step="4">사용자 반응</li>
+    </ol>
+
+    <div class="route-body">
+      <!-- 1. 문제 -->
+      <section class="leg" data-leg="1">
+        <h3><span class="leg-n">1</span>어떤 문제를 발견했고, 왜 해결하기로 했는지</h3>
+        <p class="pull">"방금 지나간 비행기, 어디서 왔지?"</p>
+        <p>하늘을 올려다보다 생기는 일상적인 궁금증을 공개 ADS-B 데이터로, 설치 없이 링크 하나로 바로 답하는 서비스입니다.</p>
+        <div class="todo">
+          직접 겪은 계기 한두 줄 (언제, 어디서 비행기를 보고 궁금했는지)<br />
+          Flightradar24 같은 기존 서비스가 있는데도 만든 이유: 무엇이 불편했는지 (예: 정보가 너무 많음, 앱 설치, 내 위치 기준이 아님)
+        </div>
+        <div class="todo">
+          왜 이 문제를 골랐는지: "여러 객체의 위치를 지도에 실시간으로 보여주는 문제"를 직접 끝까지 풀어 보고 싶었던 이유
+        </div>
+      </section>
+
+      <!-- 2. 우선순위 -->
+      <section class="leg" data-leg="2">
+        <h3><span class="leg-n">2</span>어떤 기준으로 우선순위를 정하고 덜어냈는지</h3>
+        <p>기준은 두 가지였습니다. <b>하루 안에 배포할 수 있는가</b>, 그리고 <b>리뷰어가 PC로 열어도 바로 볼 수 있는가</b>.</p>
+
+        <div class="manifest" data-manifest>
+          <div class="manifest-tabs" role="tablist" aria-label="기능 분류">
+            <button role="tab" aria-selected="true" data-filter="load">이번 편에 실음 <i>6</i></button>
+            <button role="tab" aria-selected="false" data-filter="next">다음 편으로 <i>4</i></button>
+            <button role="tab" aria-selected="false" data-filter="cut">내림 <i>3</i></button>
+          </div>
+          <ul class="manifest-list">
+            <li data-kind="load"><button aria-expanded="false">반경 내 비행기 지도 표시</button><p>방향대로 회전한 아이콘과 편명. 서비스가 존재하는 이유 그 자체.</p></li>
+            <li data-kind="load"><button aria-expanded="false">실시간 갱신과 보간 애니메이션</button><p>약 6초 간격 데이터 사이를 예측으로 이어, 순간이동 없이 움직이게.</p></li>
+            <li data-kind="load"><button aria-expanded="false">비행기 상세 카드</button><p>편명, 고도, 속도, 방향, 나와의 거리. 선택 전에는 가장 가까운 비행기.</p></li>
+            <li data-kind="load"><button aria-expanded="false">내 위치 요청과 기본 위치</button><p>권한이 없으면 인천공항 기준으로. 빈 지도를 보여주지 않기 위해.</p></li>
+            <li data-kind="load"><button aria-expanded="false">반경 원과 비행기 대수</button><p>"내 머리 위"의 범위를 눈으로 보이게.</p></li>
+            <li data-kind="load"><button aria-expanded="false">연결 상태 표시</button><p>실시간 / 재연결 중 / 데이터 지연. 무료 서버가 잠들어도 사용자가 이유를 알 수 있게.</p></li>
+            <li data-kind="next"><button aria-expanded="false">따라가기 (1순위)</button><p>PC로 여는 리뷰어도 바로 시연할 수 있고, 실시간 연결과 보간을 가장 잘 보여줌.</p></li>
+            <li data-kind="next"><button aria-expanded="false">하늘 모드</button><p>폰을 하늘로 들면 그 방향의 비행기. 센서 권한과 HTTPS가 필요해 MVP 뒤로.</p></li>
+            <li data-kind="next"><button aria-expanded="false">지나온 경로 꼬리</button><p>핵심 질문("어디서 왔지?")을 돕지만 없어도 서비스는 성립.</p></li>
+            <li data-kind="next"><button aria-expanded="false">고도별 아이콘 색상</button><p>보기 좋지만 판단을 바꾸지는 않음.</p></li>
+            <li data-kind="cut"><button aria-expanded="false">출발지 / 도착지 표시</button><p>ADS-B 위치 데이터에는 노선 정보가 없음. 정확도를 확인하기 전까지 틀린 정보를 보여주지 않기로.</p></li>
+            <li data-kind="cut"><button aria-expanded="false">과거 이력 저장과 재생</button><p>"지금 머리 위"라는 핵심과 거리가 멀고, 저장소가 필요해짐.</p></li>
+            <li data-kind="cut"><button aria-expanded="false">로그인, 알림, 네이티브 앱</button><p>링크 하나로 바로 열리는 경험이 우선.</p></li>
+          </ul>
+        </div>
+        <div class="todo">덜어내면서 가장 아까웠던 기능 하나와, 그래도 뺀 이유 (면접에서 꼭 물어보는 질문이에요)</div>
+      </section>
+
+      <!-- 3. 방향 전환 -->
+      <section class="leg" data-leg="3">
+        <h3><span class="leg-n">3</span>개발 중 직접 판단하고 방향을 바꾼 부분</h3>
+
+        <ol class="log">
+          <li>
+            <time>11.08</time>
+            <div>
+              <h4>기본 위치를 송파구에서 인천공항으로</h4>
+              <p>위치 권한을 거절한 리뷰어가 빈 지도를 보게 되는 문제. 비행기가 가장 많이 지나는 곳으로 바꿔, 누가 열어도 움직이는 비행기를 보게 했습니다.</p>
+            </div>
+          </li>
+          <li>
+            <time>11.09</time>
+            <div>
+              <h4>격자마다 조회하던 방식을 지역 통째 조회로</h4>
+              <p>보는 사람이 늘수록 외부 요청이 늘어 호출 제한(429)에 걸렸습니다. 한반도를 한 번 조회해 격자마다 나눠 발행하도록 바꿔, 요청 수가 사용자 수와 상관없게 만들었습니다.</p>
+            </div>
+          </li>
+          <li>
+            <time>11.09</time>
+            <div>
+              <h4>메인 데이터 소스를 바꿨다가, 다시 되돌림</h4>
+              <p>호출 제한 때문에 adsb.fi로 옮겼지만, 응답이 약 2초 늦고 시각이 초 단위라 따라가기가 어색해 보였습니다. 제한 문제는 통째 조회와 요청 간격으로 풀고 adsb.lol로 되돌렸습니다.</p>
+            </div>
+          </li>
+          <li>
+            <time>11.09</time>
+            <div>
+              <h4>따라가기 조회 간격 5초 → 10초 → 다시 5초</h4>
+              <p>끊김을 줄이려고 늘렸지만, 선회 중 예측 오차가 약 4배 커져 10초마다 화면이 옆으로 끌렸습니다. 직접 따라가 보며 확인하고 되돌렸습니다.</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- 인터랙티브 데모: 보간 -->
+        <figure class="demo" data-demo>
+          <figcaption>
+            <h4>직접 비교해 보기: 받은 위치만 그릴 때와 예측으로 이을 때</h4>
+            <p>데이터는 약 6초마다 도착합니다. 그 사이를 속도, 방향, 선회율로 예측하고, 새 데이터가 오면 1초에 걸쳐 합류시켰습니다. 매 프레임 React state를 바꾸지 않고 requestAnimationFrame에서 마커를 직접 옮깁니다.</p>
+          </figcaption>
+          <div class="demo-stage">
+            <canvas width="720" height="300" aria-label="비행기 보간 비교 애니메이션"></canvas>
+            <div class="demo-controls" role="radiogroup" aria-label="그리는 방식">
+              <button role="radio" aria-checked="false" data-mode="raw">받은 위치만</button>
+              <button role="radio" aria-checked="true" data-mode="interp">예측 + 1초 합류</button>
+            </div>
+            <p class="demo-meta">다음 데이터까지 <b data-countdown>6.0</b>초</p>
+          </div>
+        </figure>
+
+        <div class="todo">
+          AI(Claude Code)가 제안한 방향을 직접 바꾸거나 거절한 순간 하나 (예: Socket.IO 대신 MQTT를 고른 이유, 프론트는 직접 단계별로 확인하며 만든 이유)
+        </div>
+      </section>
+
+      <!-- 4. 사용자 반응 -->
+      <section class="leg" data-leg="4">
+        <h3><span class="leg-n">4</span>출시 후 실제 사용자 반응으로 배우고 고친 것</h3>
+        <div class="todo">
+          누구에게 어떻게 보여줬는지 (예: 지인 5명에게 링크 공유, 11.09)<br />
+          실제로 들은 반응을 그대로 1~3개 (지어내지 말고 받은 것만)
+        </div>
+        <div class="fix">
+          <div class="fix-col">
+            <p class="fix-k">들은 말</p>
+            <div class="todo">"..."</div>
+          </div>
+          <div class="fix-col">
+            <p class="fix-k">고친 것</p>
+            <div class="todo">어떤 화면/동작을 어떻게 바꿨는지, 커밋 링크</div>
+          </div>
+        </div>
+        <div class="todo">배운 점 한두 줄 (예상과 달랐던 사용 방식)</div>
+      </section>
+    </div>
+  </div>
+</article>
+
+<!-- ============ 회사 경험 ============ -->
+<section class="work" aria-labelledby="work-title">
+  <h2 id="work-title" class="work-title">이큐비알홀딩스에서 <span>2024.08 ~ 2026.01, UX/UI팀 프론트엔드 개발자</span></h2>
+
+  <!-- CASE 2: UMF -->
+  <article class="case case-sub" id="umf" data-case>
+    <header class="case-head">
+      <p class="case-cs">EQ025 <span>2025.09, 개발자 3명 현장 상주</span></p>
+      <h3>UMF KOREA 2025 블록체인 입장권</h3>
+      <p class="case-sum">뮤직 페스티벌 입장 현장에서 NFT 입장권으로 300명 이상의 입장을 지원</p>
+      <ul class="case-links"><li><a href="https://www.blockmedia.co.kr/archives/975245" target="_blank" rel="noopener">관련 기사</a></li></ul>
+    </header>
+    <div class="legs-grid">
+      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
+        <p>현장 네트워크는 불안정하고, 블록체인 등록에는 지연 시간이 있습니다. 체인 처리를 기다리면 입장 줄이 멈춥니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
+        <div class="todo">행사 전 준비 기간에 넣은 것과 뺀 것, 그 기준 (예: 현장 장애 대응을 화면 꾸밈보다 먼저)</div></section>
+      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
+        <p>낙관적 업데이트로 체인 처리 완료를 기다리지 않고 즉시 입장 처리. 행사 전 네트워크 지연 테스트와 장애 대응 매뉴얼을 미리 만들었습니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">4</span>현장 반응</h4>
+        <p>관객이 직원용 '입장하기' 버튼을 직접 눌러 입장하지 못한 1건을 기록해, 복귀 후 기획/디자인팀과 원인을 다시 살폈습니다. 운영 책임자에게 기존 업체 대비 높은 만족도와 차년도 협업 제안을 받았습니다.</p></section>
+    </div>
+    <figure class="shot shot-sm"><div class="todo todo-media">현장 사진 또는 입장권 상태별 화면 (발행 중, 입장 가능, 입장 완료, 만료)</div></figure>
+  </article>
+
+  <!-- CASE 3: 키오스크 -->
+  <article class="case case-sub" id="kiosk" data-case>
+    <header class="case-head">
+      <p class="case-cs">EQ112 <span>2025.11 ~ 2025.12, 3주 MVP</span></p>
+      <h3>광주과학고 AI 키오스크</h3>
+      <p class="case-sum">macOS WKWebView 기반 학생용 키오스크와 교사용 관리자 웹</p>
+    </header>
+    <div class="legs-grid">
+      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
+        <p>터치스크린 실기기에서만 네이티브 가상 키보드가 뜨지 않았습니다. 화면설계서에는 랭킹 동점 규칙과 노출 개수가 비어 있었습니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
+        <div class="todo">3주 안에 배포하려고 덜어낸 기능과 기준</div></section>
+      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
+        <p>React 가상 키보드 컴포넌트를 직접 구현했고, 네이티브 로그인 토큰을 웹뷰에 주입해 토큰 기반 인증을 연동했습니다. 비어 있던 랭킹 규칙과 대시보드 UI는 직접 설계해 기획에 반영했습니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">4</span>사용 반응</h4>
+        <div class="todo">학교에서 실제로 써본 반응과, 그 뒤 고친 점</div></section>
+    </div>
+    <figure class="shot shot-sm"><div class="todo todo-media">키오스크 화면과 가상 키보드</div></figure>
+  </article>
+
+  <!-- CASE 4: Memble UX -->
+  <article class="case case-sub" id="memble" data-case>
+    <header class="case-head">
+      <p class="case-cs">EQ045 <span>2024.12 ~ 2025.12, React Native 앱</span></p>
+      <h3>Memble, 아무도 요청하지 않은 UX 개선 45건</h3>
+      <p class="case-sum">담당 앱에서 개선점을 스스로 찾아 우선순위와 적용 버전을 관리하며 반영</p>
+    </header>
+    <div class="legs-grid">
+      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
+        <p>작은 닫기 버튼, 토스트와 바텀시트의 터치 충돌, 화면마다 다른 바텀시트와 문구. 요청한 사람은 없었지만 매일 쓰는 사람은 불편한 것들이었습니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
+        <div class="todo">45건 중 약 60%를 처리했어요. 무엇을 먼저 하고 무엇을 미뤘는지, 그 기준</div></section>
+      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
+        <p>하나씩 고치는 대신 디자인팀과 바텀시트를 공통 컴포넌트로 통합하고, 기획팀과 UX 라이팅 규칙을 세웠습니다.</p></section>
+      <section class="leg-s"><h4><span class="leg-n">4</span>반응</h4>
+        <p>규칙을 세운 뒤 화면마다 반복되던 논의가 줄었습니다.</p>
+        <div class="todo">사용자나 팀에게 들은 구체적인 반응이 있으면 추가</div></section>
+    </div>
+    <figure class="shot shot-sm"><div class="todo todo-media">개선 전/후 화면 (바텀시트 통합, 터치 영역)</div></figure>
+  </article>
+</section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-line">끝까지 봐 주셔서 감사합니다.</p>
+  <ul class="contact">
+    <li><a href="mailto:jj074567@gmail.com">jj074567@gmail.com</a></li>
+    <li><a href="tel:01077440745">010-7744-0745</a></li>
+    <li><a href="https://github.com/jin-dooly" target="_blank" rel="noopener">github.com/jin-dooly</a></li>
+  </ul>
+  <a class="to-top" href="#top">처음으로</a>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>시안 B 탑승권</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+:root { --sky: #2337c6; --sky-2: #1a2a9e; --pass: #fbfaf6; --ink: #121417; --ink-2: #61666e; --sign: #ffd23f; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--sky); color: var(--pass); font: 400 16px/1.7 "IBM Plex Sans KR", sans-serif; word-break: keep-all; overflow-x: hidden; }
+.hero { min-height: 100svh; padding: 48px clamp(16px, 5vw, 72px); display: grid; grid-template-rows: auto 1fr auto; gap: 32px; }
+.top { display: flex; justify-content: space-between; font: 400 13px "Space Mono", monospace; opacity: .8; }
+h1 { font: 400 clamp(64px, 12vw, 180px)/0.95 "Black Han Sans", sans-serif; margin: 0; letter-spacing: -0.02em; align-self: end; }
+h1 span { display: block; color: var(--sign); }
+.sub { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+.sub p { max-width: 30em; margin: 0; opacity: .85; }
+.sub .hint { font: 700 14px "Space Mono", monospace; color: var(--sign); }
+
+/* 탑승권 묶음 */
+.gate { padding: 80px clamp(16px, 5vw, 72px) 140px; background: var(--sky-2); }
+.gate h2 { font: 400 40px/1.2 "Black Han Sans"; margin: 0 0 8px; }
+.gate > p { opacity: .75; margin: 0 0 40px; }
+.passes { display: grid; gap: 22px; max-width: 980px; }
+.pass { display: grid; grid-template-columns: 1fr 190px; color: var(--ink); filter: drop-shadow(0 10px 0 rgba(0,0,0,.18)); cursor: grab; user-select: none; touch-action: pan-y; }
+.main, .stub { background: var(--pass); padding: 22px 26px; position: relative; }
+.main { border-radius: 14px 0 0 14px; display: grid; grid-template-columns: auto 1fr auto; gap: 8px 28px; align-items: end; }
+.main::after { content: ""; position: absolute; right: -1px; top: 12px; bottom: 12px; border-right: 2px dashed #c5c3bb; }
+.stub { border-radius: 0 14px 14px 0; transition: transform .5s cubic-bezier(.2,.8,.3,1), opacity .5s; transform-origin: 0 100%; }
+.k { font: 400 11px "Space Mono", monospace; color: var(--ink-2); display: block; }
+.code { font: 400 46px/1 "Black Han Sans"; }
+.route { font: 700 14px "Space Mono"; color: var(--ink-2); grid-column: 1 / -1; }
+.name { font-size: 20px; font-weight: 700; line-height: 1.3; }
+.tag { justify-self: end; font: 700 12px "Space Mono"; background: var(--ink); color: var(--sign); padding: 4px 8px; border-radius: 4px; }
+.stub .seat { font: 400 40px/1 "Black Han Sans"; color: var(--sky); }
+.stub .tear { font: 700 11px "Space Mono"; color: var(--ink-2); margin-top: 10px; display: block; }
+.pass.torn .stub { transform: rotate(14deg) translate(40px, 30px); opacity: 0; }
+.pass.torn .main { border-radius: 14px; }
+.pass:hover .stub { transform: rotate(3deg); }
+.open { grid-column: 1 / -1; max-height: 0; overflow: hidden; transition: max-height .6s ease; background: var(--pass); border-radius: 0 0 14px 14px; margin-top: -8px; }
+.pass.torn .open { max-height: 420px; }
+.open-in { padding: 24px 26px 26px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; border-top: 2px dashed #c5c3bb; }
+.open-in h3 { font: 700 14px "IBM Plex Sans KR"; margin: 0 0 6px; color: var(--sky); }
+.open-in p { font-size: 14px; color: var(--ink-2); margin: 0; }
+@media (max-width: 760px) {
+  .pass { grid-template-columns: 1fr 110px; }
+  .main { grid-template-columns: 1fr; }
+  .tag { justify-self: start; }
+  .open-in { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="top"><span>LEE JINYI / FRONTEND</span><span>ICN 37.46N 126.44E</span></div>
+  <h1>현장을<br />관찰하는<span>개발자</span></h1>
+  <div class="sub">
+    <p>사용자가 실제로 화면을 쓰는 곳에서 문제를 찾고, 그 흐름을 UI로 옮깁니다. 페스티벌 입장 현장에서, 키오스크 실기기 앞에서, 그리고 하늘을 올려다보며.</p>
+    <span class="hint">아래 탑승권을 오른쪽으로 끌어 찢어 보세요</span>
+  </div>
+</header>
+
+<section class="gate">
+  <h2>탑승 수속</h2>
+  <p>경험 하나가 탑승권 한 장. 절취선을 찢으면 네 가지 질문이 열려요.</p>
+  <div class="passes">
+    <article class="pass">
+      <div class="main">
+        <div><span class="k">FLIGHT</span><span class="code">JY101</span></div>
+        <div><span class="k">사이드 프로젝트, 2026.11</span><span class="name">내 머리 위 비행기</span></div>
+        <span class="tag">MAIN</span>
+        <span class="route">React · MQTT · Leaflet · Zustand</span>
+      </div>
+      <div class="stub"><span class="k">GATE</span><span class="seat">01</span><span class="tear">끌어서 찢기 ⟶</span></div>
+      <div class="open"><div class="open-in">
+        <div><h3>1 문제</h3><p>"방금 지나간 비행기, 어디서 왔지?"</p></div>
+        <div><h3>2 덜어낸 것</h3><p>하루 안에 배포, PC로도 바로 시연</p></div>
+        <div><h3>3 방향 전환</h3><p>데이터 소스를 바꿨다가 되돌린 이유</p></div>
+        <div><h3>4 사용자 반응</h3><p>직접 작성</p></div>
+      </div></div>
+    </article>
+    <article class="pass">
+      <div class="main">
+        <div><span class="k">FLIGHT</span><span class="code">EQ025</span></div>
+        <div><span class="k">이큐비알홀딩스, 2025.09</span><span class="name">UMF 블록체인 입장권</span></div>
+        <span class="tag">300+ 입장</span>
+        <span class="route">React Native · 낙관적 업데이트 · 현장 상주</span>
+      </div>
+      <div class="stub"><span class="k">GATE</span><span class="seat">02</span><span class="tear">끌어서 찢기 ⟶</span></div>
+      <div class="open"><div class="open-in">
+        <div><h3>1 문제</h3><p>불안정한 현장 네트워크, 체인 등록 지연</p></div>
+        <div><h3>2 덜어낸 것</h3><p>직접 작성</p></div>
+        <div><h3>3 방향 전환</h3><p>체인 완료를 기다리지 않는 즉시 입장</p></div>
+        <div><h3>4 현장 반응</h3><p>입장 실패 1건을 기록해 다시 검토</p></div>
+      </div></div>
+    </article>
+    <article class="pass">
+      <div class="main">
+        <div><span class="k">FLIGHT</span><span class="code">EQ112</span></div>
+        <div><span class="k">이큐비알홀딩스, 2025.11</span><span class="name">광주과학고 AI 키오스크</span></div>
+        <span class="tag">3주 MVP</span>
+        <span class="route">React · Swift WKWebView · 토큰 인증</span>
+      </div>
+      <div class="stub"><span class="k">GATE</span><span class="seat">03</span><span class="tear">끌어서 찢기 ⟶</span></div>
+      <div class="open"><div class="open-in">
+        <div><h3>1 문제</h3><p>실기기에서만 안 뜨는 가상 키보드</p></div>
+        <div><h3>2 덜어낸 것</h3><p>직접 작성</p></div>
+        <div><h3>3 방향 전환</h3><p>React 가상 키보드 직접 구현</p></div>
+        <div><h3>4 사용 반응</h3><p>직접 작성</p></div>
+      </div></div>
+    </article>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.pass').forEach((pass) => {
+  const stub = pass.querySelector('.stub');
+  let x0 = null;
+  const tear = () => { pass.classList.add('torn'); stub.style.transform = ''; };
+  pass.addEventListener('pointerdown', (e) => { if (pass.classList.contains('torn')) return; x0 = e.clientX; pass.setPointerCapture(e.pointerId); stub.style.transition = 'none'; });
+  pass.addEventListener('pointermove', (e) => {
+    if (x0 === null) return;
+    const dx = Math.max(0, e.clientX - x0);
+    stub.style.transform = `rotate(${Math.min(dx / 8, 16)}deg) translateX(${dx * .3}px)`;
+  });
+  pass.addEventListener('pointerup', (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null; stub.style.transition = '';
+    if (dx > 70 || Math.abs(dx) < 4) tear(); else stub.style.transform = '';
+  });
+});
+</script>
+</body>
+</html>

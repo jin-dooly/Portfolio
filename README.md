@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# 이진이 포트폴리오
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+빌드 없는 정적 페이지(HTML, CSS, JS)예요. `index.html`을 브라우저로 바로 열어서 확인할 수 있어요.
 
-## Available Scripts
+## 파일
 
-In the project directory, you can run:
+| 파일 | 내용 |
+| --- | --- |
+| `index.html` | 모든 글. 점선 마젠타 상자(`class="todo"`)가 직접 채울 자리 |
+| `style.css` | 디자인 (항공 지도 톤, 다크 모드 포함) |
+| `main.js` | 첫 화면 반경 지도, 항로 단계 표시, 적재 목록 탭, 보간 데모 |
+| `assets/` | 스크린샷, GIF를 넣는 곳 |
+| `.nojekyll` | GitHub Pages가 파일을 그대로 쓰게 하는 빈 파일 (지우지 마세요) |
 
-### `npm start`
+## 채워야 할 곳
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+`index.html`에서 `todo`를 검색하세요.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 내 머리 위 비행기: 1번(계기, 기존 서비스와 차이), 2번(가장 아까웠던 기능), 3번(AI 제안을 바꾼 순간), **4번 전체(실제 사용자 반응)**, 대표 GIF
+- UMF, 키오스크, Memble: 각 2번(우선순위 기준), 키오스크 4번, 이미지
 
-### `npm test`
+이미지는 `assets/`에 넣고 `<div class="todo todo-media">...</div>`를 `<img src="assets/파일명" alt="설명" />`로 바꾸면 돼요. 경로는 꼭 `assets/...`처럼 상대 경로로 쓰세요(`/assets/...`는 하위 경로 배포에서 깨져요).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+첫 화면 비행기의 편명, 이름, 궤도는 `main.js` 위쪽 `flights` 배열에서 바꿀 수 있어요.
 
-### `npm run build`
+## 배포 (https://jin-dooly.github.io/portfolio/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+git init
+git add .
+git commit -m "chore: 포트폴리오 구성"
+git branch -M main
+git remote add origin https://github.com/jin-dooly/portfolio.git
+git push -u origin main
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GitHub 저장소 Settings → Pages → Source: `Deploy from a branch`, Branch: `main` / `/ (root)` 저장. 1~2분 뒤 주소로 열려요.
