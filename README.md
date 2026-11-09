@@ -2,7 +2,7 @@
 
 현장을 관찰하는 프론트엔드 개발자 이진이의 포트폴리오입니다.
 
-- 주소: https://jin-dooly.github.io/Postfolio/
+- 주소: https://jin-dooly.github.io/Portfolio/
 - 빌드 없는 정적 페이지(HTML, CSS, JS)라 `index.html`을 브라우저로 바로 열어 볼 수 있습니다.
 
 ## 담긴 내용
