@@ -1,112 +1,111 @@
 // 포트폴리오 인터랙션
-// 1) 첫 화면 반경 지도: 경험들이 비행기로 날아다님, 누르면 해당 경험으로 이동
-// 2) 메인 사례 항로 레일: 읽는 위치에 따라 단계 표시
-// 3) 적재 목록: 실음 / 다음 편 / 내림 탭과 이유 펼치기
+// 1) 첫 화면 돋보기: 돋보기 안에서만 "개발자가 본 것"이 보임
+// 2) 메인 사례 단계 레일: 읽는 위치에 따라 단계 표시
+// 3) 넣은 것 / 미룬 것 / 뺀 것 탭과 이유 펼치기
 // 4) 보간 데모: 받은 위치만 그릴 때 vs 예측 + 1초 합류
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-/* ---------------- 1. 반경 지도 ---------------- */
+/* ---------------- 1. 돋보기 ---------------- */
 (() => {
-  const svg = document.getElementById('radar');
-  const layer = document.getElementById('planes');
-  if (!svg || !layer) return;
-  const NS = 'http://www.w3.org/2000/svg';
+  const wrap = document.getElementById('stage-wrap');
+  const stage = document.getElementById('stage');
+  const seen = document.getElementById('seen');
+  const lens = document.getElementById('lens');
+  if (!wrap || !stage) return;
 
-  // ✏️ 지도 위 비행기 = 경험. id는 아래 article id와 같아야 해요.
-  // r: 궤도 반지름, speed: 초당 라디안(음수면 반대 방향), phase: 시작 각도, squash: 궤도 납작함
-  const flights = [
-    { id: 'flight', cs: 'JY101', name: '내 머리 위 비행기', r: 128, speed: 0.07, phase: 0.6, squash: 0.78, tilt: 0.4, main: true },
-    { id: 'umf', cs: 'EQ025', name: 'UMF 입장권', r: 205, speed: -0.045, phase: 2.4, squash: 0.62, tilt: -0.5 },
-    { id: 'kiosk', cs: 'EQ112', name: 'AI 키오스크', r: 176, speed: 0.052, phase: 4.1, squash: 0.85, tilt: 1.2 },
-    { id: 'memble', cs: 'EQ045', name: 'Memble UX', r: 222, speed: -0.038, phase: 5.4, squash: 0.7, tilt: 2.1 },
+  const W = 720, H = 650, R = 120;
+  let scale = 1;
+  const fit = () => {
+    scale = Math.min(1, wrap.clientWidth / W);
+    stage.style.transform = `scale(${scale})`;
+    wrap.style.height = H * scale + 'px';
+  };
+  fit();
+  addEventListener('resize', fit);
+
+  // ✏️ 사용자가 움직이기 전, 돋보기가 차례로 들르는 곳 (무대 좌표 720 x 650)
+  const tour = [
+    { x: 150, y: 250 },  // 비행기 지도: 예측 보간
+    { x: 420, y: 230 },  // 입장권: 낙관적 업데이트
+    { x: 470, y: 560 },  // 키오스크: 가상 키보드
+    { x: 130, y: 560 },  // 비행기 카드: 가장 가까운 비행기
+    { x: 515, y: 40 },   // 닫기 버튼 터치 영역
   ];
+  let stop = 0, stopAt = performance.now();
+  let x = tour[0].x, y = tour[0].y, tx = x, ty = y;
+  let user = false, idleTimer = null;
 
-  const listLinks = [...document.querySelectorAll('.flight-list a')];
-  const PLANE = 'M0 -11 L2 -4 L10 1 L10 3 L2 1 L1.6 7 L4.5 9.5 L4.5 11 L0 10 L-4.5 11 L-4.5 9.5 L-1.6 7 L-2 1 L-10 3 L-10 1 L-2 -4 Z';
-
-  flights.forEach((f) => {
-    const g = document.createElementNS(NS, 'g');
-    g.setAttribute('class', 'plane' + (f.main ? ' main' : ''));
-    g.setAttribute('tabindex', '0');
-    g.setAttribute('role', 'link');
-    g.setAttribute('aria-label', `${f.cs} ${f.name} 보기`);
-    g.innerHTML = `
-      <polyline class="tail" points="" />
-      <g class="craft"><circle class="hit" r="22" /><path class="body" d="${PLANE}" /></g>
-      <g class="label">
-        <rect class="tag-bg" rx="3" />
-        <text class="tag" x="16" y="-4">${f.cs}</text>
-        <text class="tag-name" x="16" y="12">${f.name}</text>
-      </g>`;
-    layer.appendChild(g);
-    f.el = g;
-    f.tail = g.querySelector('.tail');
-    f.craft = g.querySelector('.craft');
-    f.label = g.querySelector('.label');
-    f.trail = [];
-    requestAnimationFrame(() => {
-      const bb = f.label.getBBox();
-      const bg = f.label.querySelector('.tag-bg');
-      bg.setAttribute('x', bb.x - 4); bg.setAttribute('y', bb.y - 2);
-      bg.setAttribute('width', bb.width + 8); bg.setAttribute('height', bb.height + 4);
-    });
-
-    const go = () => document.getElementById(f.id)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
-    g.addEventListener('click', go);
-    g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
-    const link = listLinks.find((a) => a.dataset.id === f.id);
-    const on = (v) => { g.classList.toggle('on', v); link?.classList.toggle('on', v); f.hover = v; };
-    g.addEventListener('mouseenter', () => on(true));
-    g.addEventListener('mouseleave', () => on(false));
-    g.addEventListener('focus', () => on(true));
-    g.addEventListener('blur', () => on(false));
-    link?.addEventListener('mouseenter', () => on(true));
-    link?.addEventListener('mouseleave', () => on(false));
-  });
-
-  const pos = (f, t) => {
-    const a = f.phase + f.speed * t;
-    const x0 = Math.cos(a) * f.r, y0 = Math.sin(a) * f.r * f.squash;
-    const c = Math.cos(f.tilt), s = Math.sin(f.tilt);
-    return { x: x0 * c - y0 * s, y: x0 * s + y0 * c };
+  const place = () => {
+    seen.style.clipPath = `circle(${R}px at ${x}px ${y}px)`;
+    lens.style.transform = `translate(${x}px, ${y}px)`;
   };
 
-  let visible = true, last = performance.now(), clock = 0;
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(svg);
+  const toStage = (e) => {
+    const r = stage.getBoundingClientRect();
+    return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale };
+  };
+  const follow = (e) => {
+    const p = toStage(e);
+    tx = Math.max(0, Math.min(W, p.x)); ty = Math.max(0, Math.min(H, p.y));
+    user = true;
+    clearTimeout(idleTimer);
+    if (reduceMotion) { x = tx; y = ty; place(); }
+  };
+  wrap.addEventListener('pointermove', follow);
+  wrap.addEventListener('pointerdown', follow);
+  wrap.addEventListener('pointerleave', () => {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { user = false; stopAt = performance.now(); }, 2500);
+  });
 
-  function frame(now) {
-    const dt = Math.min(0.05, (now - last) / 1000);
-    last = now;
+  // 돋보기 안에 보이는 메모를 누르면 해당 사례로 이동
+  const anns = [...seen.querySelectorAll('.ann[data-target]')];
+  const annAt = (e) => {
+    const r = stage.getBoundingClientRect();
+    const cx = r.left + x * scale, cy = r.top + y * scale;
+    if (Math.hypot(e.clientX - cx, e.clientY - cy) > R * scale) return null;
+    return anns.find((a) => {
+      const b = a.getBoundingClientRect();
+      return e.clientX >= b.left - 6 && e.clientX <= b.right + 6 && e.clientY >= b.top - 6 && e.clientY <= b.bottom + 6;
+    }) || null;
+  };
+  let hot = null;
+  wrap.addEventListener('pointermove', (e) => {
+    const a = annAt(e);
+    if (a === hot) return;
+    hot?.classList.remove('hot');
+    hot = a; hot?.classList.add('hot');
+    wrap.style.cursor = a ? 'pointer' : '';
+  });
+  wrap.addEventListener('click', (e) => {
+    const a = annAt(e);
+    if (a) document.getElementById(a.dataset.target)?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(wrap);
+
+  function loop(now) {
     if (visible) {
-      flights.forEach((f) => { if (!f.hover) f.t = (f.t ?? 0) + dt; });
-      clock += dt;
-      draw();
+      if (!user) {
+        if (now - stopAt > 2200) { stop = (stop + 1) % tour.length; stopAt = now; }
+        tx = tour[stop].x; ty = tour[stop].y;
+      }
+      const k = user ? 0.22 : 0.06;
+      x += (tx - x) * k; y += (ty - y) * k;
+      place();
     }
-    if (!reduceMotion) requestAnimationFrame(frame);
+    requestAnimationFrame(loop);
   }
-
-  function draw() {
-    flights.forEach((f) => {
-      const t = f.t ?? 0;
-      const p = pos(f, t), q = pos(f, t + 0.05);
-      const heading = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI + 90;
-      f.craft.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) rotate(${heading.toFixed(1)})`);
-      f.label.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
-      // 지나온 경로: 최근 위치를 몇 개 계산해서 꼬리로
-      const pts = [];
-      for (let k = 1; k <= 10; k++) { const b = pos(f, t - k * 1.4); pts.push(`${b.x.toFixed(1)},${b.y.toFixed(1)}`); }
-      f.tail.setAttribute('points', pts.join(' '));
-    });
-  }
-
-  if (reduceMotion) draw(); else requestAnimationFrame(frame);
+  place();
+  if (!reduceMotion) requestAnimationFrame(loop);
 })();
 
-/* ---------------- 2. 항로 레일 ---------------- */
+/* ---------------- 2. 단계 레일 ---------------- */
 (() => {
-  const rail = [...document.querySelectorAll('.route-rail li')];
+  const rail = [...document.querySelectorAll('.rail li')];
   const legs = [...document.querySelectorAll('.leg')];
   if (!rail.length) return;
   const io = new IntersectionObserver((entries) => {
@@ -123,10 +122,10 @@ const css = (name) => getComputedStyle(document.documentElement).getPropertyValu
   legs.forEach((l) => io.observe(l));
 })();
 
-/* ---------------- 3. 적재 목록 ---------------- */
+/* ---------------- 3. 넣은 것 / 미룬 것 / 뺀 것 ---------------- */
 document.querySelectorAll('[data-manifest]').forEach((m) => {
   const tabs = [...m.querySelectorAll('[data-filter]')];
-  const items = [...m.querySelectorAll('.manifest-list li')];
+  const items = [...m.querySelectorAll('.items li')];
   const show = (kind) => {
     tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.filter === kind)));
     let i = 0;
@@ -145,31 +144,24 @@ document.querySelectorAll('[data-manifest]').forEach((m) => {
   show('load');
 });
 
-/* ---------------- 4. 보간 데모 ---------------- */
+/* ---------------- 4. 보간 데모: 같은 데이터를 두 방식으로 나란히 ---------------- */
 document.querySelectorAll('[data-demo]').forEach((root) => {
-  const canvas = root.querySelector('canvas');
-  const ctx = canvas.getContext('2d');
-  const W = 720, H = 300, DPR = Math.min(2, devicePixelRatio || 1);
-  canvas.width = W * DPR; canvas.height = H * DPR;
-  ctx.scale(DPR, DPR);
+  const W = 560, H = 300, DPR = Math.min(2, devicePixelRatio || 1);
+  const panes = [...root.querySelectorAll('canvas[data-mode]')].map((canvas) => {
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    const ctx = canvas.getContext('2d'); ctx.scale(DPR, DPR);
+    return { canvas, ctx, mode: canvas.dataset.mode, trail: [], shown: null, blendFrom: null };
+  });
   const countdown = root.querySelector('[data-countdown]');
-  const buttons = [...root.querySelectorAll('[data-mode]')];
-  let mode = 'interp';
-  buttons.forEach((b) => b.addEventListener('click', () => {
-    mode = b.dataset.mode;
-    buttons.forEach((x) => x.setAttribute('aria-checked', String(x === b)));
-    trail.length = 0;
-  }));
 
   const INTERVAL = 6;     // 데이터 도착 간격(초), 실제 서비스와 같은 약 6초
   const BLEND = 1;        // 새 데이터에 합류하는 시간(초)
-  const VX = 26;          // 화면 가로 속도(px/s)
+  const VX = 22;          // 화면 가로 속도(px/s)
 
   // 실제 비행 경로 (데모용): 완만하게 선회하는 곡선
   const truth = (t) => {
-    const x = -30 + VX * t;
-    const y = H / 2 + 78 * Math.sin((x / W) * Math.PI * 2.2);
-    return { x, y };
+    const x = 24 + VX * t;  // 처음부터 화면 안에서 시작
+    return { x, y: H / 2 + 42 * Math.sin((x / W) * Math.PI * 1.6) };
   };
   const state = (t) => {
     const a = truth(t), b = truth(t + 0.1), c = truth(t + 0.2);
@@ -184,73 +176,121 @@ document.querySelectorAll('[data-demo]').forEach((root) => {
     return { x: s.x + k * (Math.sin(h) - Math.sin(s.heading)), y: s.y - k * (Math.cos(h) - Math.cos(s.heading)), heading: h };
   };
 
-  let t = 0, last = performance.now(), sample = null, sampleAt = 0, blendFrom = null, shown = null, visible = false;
+  let t = 0, last = performance.now(), sample = null, sampleAt = 0, visible = false, started = false;
   const received = [];
-  const trail = [];
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(root);
 
   function step(now) {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
-    if (visible || !shown) tick(dt);
+    if (visible || !started) { tick(dt); started = true; }
     if (!reduceMotion) requestAnimationFrame(step);
   }
 
   function tick(dt) {
     t += dt;
-    if (truth(t).x > W + 40) { t = 0; sample = null; received.length = 0; trail.length = 0; }
+    if (truth(t).x > W + 40) { t = 0; sample = null; received.length = 0; panes.forEach((p) => { p.trail.length = 0; p.shown = null; }); }
+    let fresh = false;
     if (!sample || t - sampleAt >= INTERVAL) {
-      sample = state(t); sampleAt = t;
+      sample = state(t); sampleAt = t; fresh = true;
       received.push({ x: sample.x, y: sample.y });
       if (received.length > 8) received.shift();
-      blendFrom = shown ? { ...shown } : null;
     }
     const since = t - sampleAt;
-    let p;
-    if (mode === 'raw') {
-      p = { x: sample.x, y: sample.y, heading: sample.heading };
-    } else {
-      const target = predict(sample, since);
-      if (blendFrom && since < BLEND) {
-        const k = since / BLEND, e = 1 - Math.pow(1 - k, 3);
-        p = { x: blendFrom.x + (target.x - blendFrom.x) * e, y: blendFrom.y + (target.y - blendFrom.y) * e, heading: target.heading };
-      } else p = target;
-    }
-    shown = p;
-    trail.push({ x: p.x, y: p.y });
-    if (trail.length > 400) trail.shift();
+    panes.forEach((p) => {
+      if (fresh) p.blendFrom = p.shown ? { ...p.shown } : null;
+      let pos;
+      if (p.mode === 'raw') {
+        pos = { x: sample.x, y: sample.y, heading: sample.heading };
+      } else {
+        const target = predict(sample, since);
+        if (p.blendFrom && since < BLEND) {
+          const e = 1 - Math.pow(1 - since / BLEND, 3);
+          pos = { x: p.blendFrom.x + (target.x - p.blendFrom.x) * e, y: p.blendFrom.y + (target.y - p.blendFrom.y) * e, heading: target.heading };
+        } else pos = target;
+      }
+      p.shown = pos;
+      p.trail.push({ x: pos.x, y: pos.y });
+      if (p.trail.length > 600) p.trail.shift();
+      render(p, pos);
+    });
     countdown.textContent = Math.max(0, INTERVAL - since).toFixed(1);
-    render(p);
   }
 
-  function render(p) {
-    const ink = css('--ink'), ink2 = css('--ink-2'), mag = css('--magenta'), blue = css('--blue'), line = css('--line');
+  const PLANE = new Path2D('M0 -11 L2 -4 L10 1 L10 3 L2 1 L1.6 7 L4.5 9.5 L4.5 11 L0 10 L-4.5 11 L-4.5 9.5 L-1.6 7 L-2 1 L-10 3 L-10 1 L-2 -4 Z');
+  function render({ ctx, trail, mode }, p) {
+    const ink = css('--ink'), x = css('--x'), mute = css('--mute'), mute2 = css('--mute-2');
+    const line = mode === 'raw' ? css('--ink-2') : x;
     ctx.clearRect(0, 0, W, H);
-    // 격자
-    ctx.strokeStyle = line; ctx.lineWidth = 1;
-    for (let x = 0; x <= W; x += 40) { ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, H); ctx.stroke(); }
-    for (let y = 0; y <= H; y += 40) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(W, y + .5); ctx.stroke(); }
-    // 실제 경로 (점선)
-    ctx.setLineDash([2, 6]); ctx.strokeStyle = ink2; ctx.globalAlpha = .45; ctx.beginPath();
+    ctx.strokeStyle = mute; ctx.lineWidth = 1;
+    for (let gx = 0; gx <= W; gx += 40) { ctx.beginPath(); ctx.moveTo(gx + .5, 0); ctx.lineTo(gx + .5, H); ctx.stroke(); }
+    for (let gy = 0; gy <= H; gy += 40) { ctx.beginPath(); ctx.moveTo(0, gy + .5); ctx.lineTo(W, gy + .5); ctx.stroke(); }
+    // 실제 경로
+    ctx.setLineDash([2, 6]); ctx.strokeStyle = mute2; ctx.lineWidth = 2; ctx.beginPath();
     for (let tt = 0; ; tt += 0.25) { const q = truth(tt); if (q.x > W + 40) break; tt === 0 ? ctx.moveTo(q.x, q.y) : ctx.lineTo(q.x, q.y); }
-    ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
-    // 화면에 그린 궤적
-    ctx.strokeStyle = blue; ctx.lineWidth = 2; ctx.beginPath();
+    ctx.stroke(); ctx.setLineDash([]);
+    // 화면에 그린 경로
+    ctx.strokeStyle = line; ctx.lineWidth = 2.5; ctx.beginPath();
     trail.forEach((q, i) => (i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y)));
     ctx.stroke();
     // 받은 위치
-    received.forEach((q) => { ctx.fillStyle = mag; ctx.beginPath(); ctx.arc(q.x, q.y, 4, 0, Math.PI * 2); ctx.fill(); });
+    received.forEach((q) => { ctx.fillStyle = ink; ctx.beginPath(); ctx.arc(q.x, q.y, 4, 0, Math.PI * 2); ctx.fill(); });
     // 비행기
-    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.heading + Math.PI / 2); ctx.fillStyle = ink;
-    ctx.fill(new Path2D('M0 -11 L2 -4 L10 1 L10 3 L2 1 L1.6 7 L4.5 9.5 L4.5 11 L0 10 L-4.5 11 L-4.5 9.5 L-1.6 7 L-2 1 L-10 3 L-10 1 L-2 -4 Z'));
-    ctx.restore();
-    // 범례
-    ctx.font = '500 12px "IBM Plex Sans KR", sans-serif'; ctx.textBaseline = 'middle';
-    ctx.fillStyle = mag; ctx.beginPath(); ctx.arc(16, 18, 4, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = ink2; ctx.fillText('받은 위치', 26, 18);
-    ctx.strokeStyle = blue; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(96, 18); ctx.lineTo(112, 18); ctx.stroke();
-    ctx.fillText('화면에 그린 경로', 118, 18);
+    ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.heading + Math.PI / 2); ctx.fillStyle = line; ctx.fill(PLANE); ctx.restore();
   }
 
   if (reduceMotion) { for (let i = 0; i < 300; i++) tick(1 / 30); } else requestAnimationFrame(step);
 });
+
+/* ---------------- 5. AI 타임라인: 스크롤에 따라 선이 채워지고 항목이 켜짐 ---------------- */
+(() => {
+  const tl = document.getElementById('timeline');
+  if (!tl) return;
+  const items = [...tl.querySelectorAll('.tl-item')];
+  const update = () => {
+    const r = tl.getBoundingClientRect();
+    const mark = innerHeight * 0.6;
+    const p = Math.max(0, Math.min(1, (mark - r.top) / r.height));
+    tl.style.setProperty('--p', p.toFixed(4));
+    items.forEach((it) => it.classList.toggle('on', it.getBoundingClientRect().top < mark));
+  };
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+
+/* ---------------- 6. 상단 바: 읽은 만큼 차오르는 선, 지금 읽는 구역 표시 ---------------- */
+(() => {
+  const bar = document.getElementById('topbar');
+  const progress = document.getElementById('tb-progress');
+  if (!bar) return;
+  const links = [...bar.querySelectorAll('[data-sec]')];
+  const secs = links.map((a) => document.getElementById(a.dataset.sec)).filter(Boolean);
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+    bar.classList.toggle('scrolled', scrollY > 8);
+    let cur = null;
+    secs.forEach((sec) => { if (sec.getBoundingClientRect().top < innerHeight * 0.35) cur = sec.id; });
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = 'contact';
+    links.forEach((a) => a.classList.toggle('on', a.dataset.sec === cur));
+  };
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+})();
+
+// 터치 기기에서는 안내 문구를 터치 기준으로
+if (matchMedia('(hover: none)').matches) {
+  const hint = document.getElementById('hint');
+  if (hint) hint.textContent = '화면을 눌러 돋보기를 옮기고, 돋보기 속 메모를 눌러 보세요';
+}
+
+/* ---------------- 7. 형광펜 밑줄: 화면에 들어오면 그어짐 ---------------- */
+(() => {
+  const marks = document.querySelectorAll('.hl-mark');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 1, rootMargin: '0px 0px -15% 0px' });
+  marks.forEach((m) => io.observe(m));
+})();

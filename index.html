@@ -1,308 +1,1546 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>이진이 포트폴리오</title>
-  <meta name="description" content="현장을 관찰하는 프론트엔드 개발자 이진이의 포트폴리오" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-<!-- =========================================================
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>이진이 포트폴리오</title>
+    <meta
+      name="description"
+      content="현장을 관찰하는 프론트엔드 개발자 이진이의 포트폴리오"
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="이진이 포트폴리오, 현장을 관찰하는 프론트엔드 개발자"
+    />
+    <meta
+      property="og:description"
+      content="같은 화면, 다른 것을 봅니다. 실시간 지도 서비스와 React Native 앱 운영, 페스티벌 현장 경험"
+    />
+    <!-- ✏️ 배포 주소가 바뀌면 아래 두 줄의 주소도 함께 바꿔 주세요 (미리보기 이미지는 절대 주소여야 해요) -->
+    <meta property="og:url" content="https://jin-dooly.github.io/Postfolio/" />
+    <meta
+      property="og:image"
+      content="https://jin-dooly.github.io/Postfolio/assets/og.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='13' cy='13' r='9' fill='none' stroke='%233285e0' stroke-width='3.5'/%3E%3Cpath d='M20 20l8 8' stroke='%233285e0' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- =========================================================
      작성 가이드
-     - 점선 마젠타 상자(.todo)는 직접 채워야 하는 자리예요. 채운 뒤 상자째 지우거나 <p>로 바꾸세요.
-     - 일반 글씨는 이력서와 flight-overhead 기획서(docs/PLAN.md)에서 가져온 초안이에요. 다듬어서 쓰세요.
+     - 점선 분홍 상자(.todo)는 직접 채워야 하는 자리예요. 채운 뒤 상자째 지우거나 <p>로 바꾸세요.
+     - 일반 글씨는 이력서와 flight-overhead 기획서(docs/PLAN.md)에서 가져온 초안이에요.
+     - 첫 화면 돋보기 속 메모(.ann)도 원하는 문장으로 바꿀 수 있어요.
      ========================================================= -->
 
-<!-- ============ HERO: 반경 지도 ============ -->
-<header class="hero" id="top">
-  <div class="hero-text">
-    <p class="hero-name">이진이 <span>프론트엔드 개발자, 경력 1년 5개월</span></p>
-    <h1>현장을<br />관찰하는<br />개발자</h1>
-    <p class="hero-lede">
-      사용자가 실제로 화면을 쓰는 곳에서 문제를 찾고, 그 흐름을 UI로 옮깁니다.
-      페스티벌 입장 현장에 상주했고, 키오스크 실기기에서만 드러난 문제를 직접 해결했고,
-      지금은 내 머리 위를 지나는 비행기를 실시간으로 보여주는 서비스를 만들고 있습니다.
-    </p>
-    <ul class="contact">
-      <li><a href="mailto:jj074567@gmail.com">jj074567@gmail.com</a></li>
-      <li><a href="tel:01077440745">010-7744-0745</a></li>
-      <li><a href="https://github.com/jin-dooly" target="_blank" rel="noopener">github.com/jin-dooly</a></li>
-    </ul>
-  </div>
-
-  <div class="radar" aria-label="경험 지도. 비행기를 누르면 해당 경험으로 이동해요.">
-    <div class="radar-chip" aria-hidden="true">
-      <span class="dot"></span> 반경 20km 안 <b id="count">4</b>대
+    <!-- ============ 상단 바: 이름 + 목차 + 읽은 만큼 차오르는 선 ============ -->
+    <div class="topbar" id="topbar">
+      <a class="tb-name" href="#top"
+        ><span class="tb-role">현장을 관찰하는 개발자,</span> <b>이진이</b></a
+      >
+      <nav class="tb-nav" aria-label="목차">
+        <a href="#flight" data-sec="flight">내 머리 위 비행기</a>
+        <a href="#work" data-sec="work">이큐비알홀딩스</a>
+        <a href="#ai" data-sec="ai">AI와 1인 개발</a>
+        <a href="#contact" data-sec="contact">연락처</a>
+      </nav>
+      <span class="tb-progress" id="tb-progress" aria-hidden="true"></span>
     </div>
-    <svg id="radar" viewBox="-260 -260 520 520" role="group">
-      <defs>
-        <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse" x="-260" y="-260">
-          <path d="M52 0H0V52" fill="none" class="grid-line" />
-        </pattern>
-        <path id="ring-path" d="M 0 -200 A 200 200 0 1 1 -0.01 -200" />
-        <radialGradient id="fade"><stop offset="0.55" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></radialGradient>
-        <mask id="grid-mask"><rect x="-260" y="-260" width="520" height="520" fill="url(#fade)" /></mask>
-      </defs>
-      <rect x="-260" y="-260" width="520" height="520" fill="url(#grid)" mask="url(#grid-mask)" />
-      <circle r="100" class="ring" />
-      <circle r="200" class="ring ring-outer" />
-      <text class="ring-label"><textPath href="#ring-path" startOffset="3%">20km</textPath></text>
-      <text class="ring-label" x="6" y="-104">10km</text>
-      <g class="me">
-        <circle r="18" class="me-halo" />
-        <circle r="6" class="me-dot" />
-        <text y="32" text-anchor="middle" class="me-label">지금 여기</text>
-      </g>
-      <g id="planes"></g>
-    </svg>
-    <p class="radar-coord" aria-hidden="true">37°29′N 127°07′E</p>
-  </div>
 
-  <!-- 비행기 목록 (지도의 비행기와 같은 대상, 키보드/스크린리더용 겸 범례) -->
-  <nav class="flight-list" aria-label="경험 목록">
-    <a href="#flight" data-id="flight"><span class="cs">JY101</span>내 머리 위 비행기<em>사이드 프로젝트</em></a>
-    <a href="#umf" data-id="umf"><span class="cs">EQ025</span>UMF 블록체인 입장권<em>이큐비알홀딩스</em></a>
-    <a href="#kiosk" data-id="kiosk"><span class="cs">EQ112</span>광주과학고 AI 키오스크<em>이큐비알홀딩스</em></a>
-    <a href="#memble" data-id="memble"><span class="cs">EQ045</span>Memble UX 개선 45건<em>이큐비알홀딩스</em></a>
-  </nav>
-</header>
+    <!-- ============ HERO: 돋보기 ============ -->
+    <header class="hero" id="top">
+      <div class="intro">
+        <p class="who">
+          이진이 <span>Frontend Developer</span><span>경력 1년 5개월</span>
+        </p>
+        <h1>같은 화면,<br />다른 것을<br />봅니다</h1>
+        <p class="lede">
+          현장을 관찰하는 개발자입니다. 사용자가 실제로 화면을 쓰는 곳에서
+          문제를 찾고, 그 흐름을 UI로 옮깁니다.
+        </p>
+        <p class="hint" id="hint">
+          오른쪽 화면 위로 마우스를 움직이고, 돋보기 속 메모를 눌러 보세요
+        </p>
+      </div>
 
-<main>
-
-<!-- ============ CASE 1: 내 머리 위 비행기 (메인) ============ -->
-<article class="case case-main" id="flight" data-case>
-  <header class="case-head">
-    <p class="case-cs">JY101 <span>2026.11, 1인 개발</span></p>
-    <h2>내 머리 위 비행기</h2>
-    <p class="case-sum">내 위치 상공 반경 20km를 지나는 비행기를 지도 위에 실시간으로 보여주는 웹 서비스</p>
-    <ul class="case-links">
-      <li><a href="https://flight-overhead.vercel.app" target="_blank" rel="noopener">서비스 열기</a></li>
-      <li><a href="https://github.com/jin-dooly/flight-overhead" target="_blank" rel="noopener">GitHub</a></li>
-    </ul>
-    <p class="stack">React, TypeScript, Leaflet, Zustand, MQTT(mqtt.js, Aedes), Express, Vitest</p>
-    <figure class="shot">
-      <!-- ✏️ 대표 화면 GIF/이미지: assets/flight-main.gif 로 넣고 아래 div를 img로 바꾸세요
-           <img src="assets/flight-main.gif" alt="지도 위에서 비행기들이 부드럽게 움직이는 화면" /> -->
-      <div class="todo todo-media">대표 화면 GIF (지도 모드 + 따라가기). 낮 시간대 인천공항 근처에서 녹화 추천</div>
-    </figure>
-  </header>
-
-  <div class="route">
-    <ol class="route-rail" aria-hidden="true">
-      <li data-step="1">문제 발견</li>
-      <li data-step="2">우선순위</li>
-      <li data-step="3">방향 전환</li>
-      <li data-step="4">사용자 반응</li>
-    </ol>
-
-    <div class="route-body">
-      <!-- 1. 문제 -->
-      <section class="leg" data-leg="1">
-        <h3><span class="leg-n">1</span>어떤 문제를 발견했고, 왜 해결하기로 했는지</h3>
-        <p class="pull">"방금 지나간 비행기, 어디서 왔지?"</p>
-        <p>하늘을 올려다보다 생기는 일상적인 궁금증을 공개 ADS-B 데이터로, 설치 없이 링크 하나로 바로 답하는 서비스입니다.</p>
-        <div class="todo">
-          직접 겪은 계기 한두 줄 (언제, 어디서 비행기를 보고 궁금했는지)<br />
-          Flightradar24 같은 기존 서비스가 있는데도 만든 이유: 무엇이 불편했는지 (예: 정보가 너무 많음, 앱 설치, 내 위치 기준이 아님)
-        </div>
-        <div class="todo">
-          왜 이 문제를 골랐는지: "여러 객체의 위치를 지도에 실시간으로 보여주는 문제"를 직접 끝까지 풀어 보고 싶었던 이유
-        </div>
-      </section>
-
-      <!-- 2. 우선순위 -->
-      <section class="leg" data-leg="2">
-        <h3><span class="leg-n">2</span>어떤 기준으로 우선순위를 정하고 덜어냈는지</h3>
-        <p>기준은 두 가지였습니다. <b>하루 안에 배포할 수 있는가</b>, 그리고 <b>리뷰어가 PC로 열어도 바로 볼 수 있는가</b>.</p>
-
-        <div class="manifest" data-manifest>
-          <div class="manifest-tabs" role="tablist" aria-label="기능 분류">
-            <button role="tab" aria-selected="true" data-filter="load">이번 편에 실음 <i>6</i></button>
-            <button role="tab" aria-selected="false" data-filter="next">다음 편으로 <i>4</i></button>
-            <button role="tab" aria-selected="false" data-filter="cut">내림 <i>3</i></button>
+      <div class="stage-wrap" id="stage-wrap">
+        <div
+          class="stage"
+          id="stage"
+          aria-label="개발자가 본 화면을 돋보기로 보여주는 그림"
+        >
+          <!-- 보통 화면 -->
+          <div class="layer plain" aria-hidden="true">
+            <div class="screen s1">
+              <div class="pill"></div>
+              <div class="rings"><i></i><i></i></div>
+              <svg
+                class="ac"
+                style="left: 182px; top: 150px; rotate: 40deg"
+                viewBox="-11 -11 22 22"
+              >
+                <use href="#plane" />
+              </svg>
+              <svg
+                class="ac"
+                style="left: 70px; top: 286px; rotate: -70deg"
+                viewBox="-11 -11 22 22"
+              >
+                <use href="#plane" />
+              </svg>
+              <div class="sheet"><b></b><span></span></div>
+            </div>
+            <div class="screen s2">
+              <div class="x"></div>
+              <div class="ticket"><b></b><span></span><span></span></div>
+              <div class="btn"></div>
+            </div>
+            <div class="screen s3">
+              <div class="field"></div>
+              <div class="keys"></div>
+            </div>
           </div>
-          <ul class="manifest-list">
-            <li data-kind="load"><button aria-expanded="false">반경 내 비행기 지도 표시</button><p>방향대로 회전한 아이콘과 편명. 서비스가 존재하는 이유 그 자체.</p></li>
-            <li data-kind="load"><button aria-expanded="false">실시간 갱신과 보간 애니메이션</button><p>약 6초 간격 데이터 사이를 예측으로 이어, 순간이동 없이 움직이게.</p></li>
-            <li data-kind="load"><button aria-expanded="false">비행기 상세 카드</button><p>편명, 고도, 속도, 방향, 나와의 거리. 선택 전에는 가장 가까운 비행기.</p></li>
-            <li data-kind="load"><button aria-expanded="false">내 위치 요청과 기본 위치</button><p>권한이 없으면 인천공항 기준으로. 빈 지도를 보여주지 않기 위해.</p></li>
-            <li data-kind="load"><button aria-expanded="false">반경 원과 비행기 대수</button><p>"내 머리 위"의 범위를 눈으로 보이게.</p></li>
-            <li data-kind="load"><button aria-expanded="false">연결 상태 표시</button><p>실시간 / 재연결 중 / 데이터 지연. 무료 서버가 잠들어도 사용자가 이유를 알 수 있게.</p></li>
-            <li data-kind="next"><button aria-expanded="false">따라가기 (1순위)</button><p>PC로 여는 리뷰어도 바로 시연할 수 있고, 실시간 연결과 보간을 가장 잘 보여줌.</p></li>
-            <li data-kind="next"><button aria-expanded="false">하늘 모드</button><p>폰을 하늘로 들면 그 방향의 비행기. 센서 권한과 HTTPS가 필요해 MVP 뒤로.</p></li>
-            <li data-kind="next"><button aria-expanded="false">지나온 경로 꼬리</button><p>핵심 질문("어디서 왔지?")을 돕지만 없어도 서비스는 성립.</p></li>
-            <li data-kind="next"><button aria-expanded="false">고도별 아이콘 색상</button><p>보기 좋지만 판단을 바꾸지는 않음.</p></li>
-            <li data-kind="cut"><button aria-expanded="false">출발지 / 도착지 표시</button><p>ADS-B 위치 데이터에는 노선 정보가 없음. 정확도를 확인하기 전까지 틀린 정보를 보여주지 않기로.</p></li>
-            <li data-kind="cut"><button aria-expanded="false">과거 이력 저장과 재생</button><p>"지금 머리 위"라는 핵심과 거리가 멀고, 저장소가 필요해짐.</p></li>
-            <li data-kind="cut"><button aria-expanded="false">로그인, 알림, 네이티브 앱</button><p>링크 하나로 바로 열리는 경험이 우선.</p></li>
-          </ul>
+
+          <!-- 개발자가 본 화면 (돋보기 안에서만 보임) -->
+          <div class="layer seen" id="seen">
+            <div class="screen s1">
+              <div class="pill"></div>
+              <div class="rings"><i></i><i></i></div>
+              <svg
+                class="ac"
+                style="left: 182px; top: 150px; rotate: 40deg"
+                viewBox="-11 -11 22 22"
+              >
+                <use href="#plane" />
+              </svg>
+              <svg
+                class="ac"
+                style="left: 70px; top: 286px; rotate: -70deg"
+                viewBox="-11 -11 22 22"
+              >
+                <use href="#plane" />
+              </svg>
+              <div class="trail" style="left: 150px; top: 110px"></div>
+              <div class="sheet"><b></b><span></span></div>
+              <p
+                class="ann"
+                data-target="flight"
+                style="left: 14px; top: 52px; width: 220px"
+              >
+                연결 상태를 항상 보이게<br /><span
+                  >실시간 / 재연결 중 / 데이터 지연</span
+                >
+              </p>
+              <p
+                class="ann"
+                data-target="flight"
+                style="left: 130px; top: 186px; width: 112px"
+              >
+                6초 사이는 예측으로<br /><span
+                  >속도, 방향, 선회율로<br />매 프레임</span
+                >
+              </p>
+              <p
+                class="ann"
+                data-target="flight"
+                style="left: 16px; top: 380px; width: 230px"
+              >
+                선택 전에도 카드가 비지 않게<br /><span
+                  >가장 가까운 비행기를 기본으로</span
+                >
+              </p>
+              <div
+                class="box"
+                style="left: 8px; right: 8px; bottom: 8px; height: 96px"
+              ></div>
+            </div>
+            <div class="screen s2">
+              <div class="x"></div>
+              <div class="ticket"><b></b><span></span><span></span></div>
+              <div class="btn"></div>
+              <div
+                class="box"
+                style="
+                  right: 4px;
+                  top: 4px;
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 50%;
+                "
+              ></div>
+              <p
+                class="ann"
+                data-target="memble"
+                style="left: 24px; top: 20px; width: 150px"
+              >
+                닫기 버튼 터치 영역 확장
+              </p>
+              <p
+                class="ann"
+                data-target="umf"
+                style="left: 34px; top: 190px; width: 176px"
+              >
+                체인 등록을 기다리지 않기<br /><span
+                  >현장 네트워크가 불안정해서 낙관적 업데이트로 즉시 입장</span
+                >
+              </p>
+              <div
+                class="box"
+                style="left: 12px; right: 12px; bottom: 12px; height: 58px"
+              ></div>
+              <p
+                class="ann"
+                data-target="umf"
+                style="left: 18px; bottom: 76px; width: 200px"
+              >
+                관객이 직원용 버튼을 눌렀던 1건
+              </p>
+            </div>
+            <div class="screen s3">
+              <div class="field"></div>
+              <div class="keys"></div>
+              <div
+                class="box"
+                style="left: 8px; right: 8px; bottom: 8px; height: 126px"
+              ></div>
+              <p
+                class="ann"
+                data-target="kiosk"
+                style="left: 18px; top: 56px; width: 380px"
+              >
+                실기기에서만 안 뜨던 키보드<br /><span
+                  >터치스크린에서 네이티브 키보드가 나오지 않아 React로 직접
+                  구현</span
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="lens" id="lens" aria-hidden="true">
+            <span>관찰 중</span>
+          </div>
         </div>
-        <div class="todo">덜어내면서 가장 아까웠던 기능 하나와, 그래도 뺀 이유 (면접에서 꼭 물어보는 질문이에요)</div>
+      </div>
+
+      <ul class="strengths" aria-label="이진이의 강점">
+        <li>
+          <b>실시간 데이터를 끊김 없이 보여줍니다</b>
+          <p>
+            6초 간격 위치 데이터를 예측 보간으로 이어, 지도 위 여러 비행기가
+            부드럽게 움직이는 서비스를 기획부터 배포까지 혼자 만들었습니다.
+          </p>
+          <a class="go" href="#flight"
+            >내 머리 위 비행기<span aria-hidden="true">↓</span></a
+          >
+        </li>
+        <li>
+          <b>운영 중인 앱을 멈추지 않고 바꿉니다</b>
+          <p>
+            앱 다운로드가 10배로 느는 동안, React Native 앱을 1년 넘게 운영하며
+            기능 개발 및 유지보수 했습니다.
+          </p>
+          <a class="go" href="#memble"
+            >Memble React Native 앱<span aria-hidden="true">↓</span></a
+          >
+        </li>
+        <li>
+          <b>문제는 현장에서 찾습니다</b>
+          <p>
+            페스티벌 입장 현장에 상주해 300명 이상의 입장을 지원했고, 키오스크
+            실기기에서만 드러난 문제를 직접 찾아 해결했습니다.
+          </p>
+          <a class="go" href="#umf"
+            >UMF 입장권<span aria-hidden="true">↓</span></a
+          ><a class="go" href="#kiosk"
+            >AI 키오스크<span aria-hidden="true">↓</span></a
+          >
+        </li>
+      </ul>
+
+      <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+        <defs>
+          <path
+            id="plane"
+            fill="currentColor"
+            d="M0 -11 L2 -4 L10 1 L10 3 L2 1 L1.6 7 L4.5 9.5 L4.5 11 L0 10 L-4.5 11 L-4.5 9.5 L-1.6 7 L-2 1 L-10 3 L-10 1 L-2 -4 Z"
+          />
+        </defs>
+      </svg>
+    </header>
+
+    <main>
+      <!-- ============ 메인: 내 머리 위 비행기 ============ -->
+      <article class="case case-main" id="flight">
+        <header class="case-head has-side side-phones">
+          <div class="head-main">
+            <p class="kicker">
+              사이드 프로젝트, 2026.11, 기획부터 배포까지 1인
+            </p>
+            <div class="title-row">
+              <h2>내 머리 위 비행기</h2>
+              <div class="tl-actions">
+                <a
+                  class="icon-btn"
+                  href="https://flight-overhead.vercel.app"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="내 머리 위 비행기 서비스 열기"
+                  title="서비스 열기"
+                  ><svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                    /></svg></a
+                ><a
+                  class="icon-btn"
+                  href="https://github.com/jin-dooly/flight-overhead"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="내 머리 위 비행기 GitHub 저장소"
+                  title="GitHub"
+                  ><svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                    /></svg
+                ></a>
+              </div>
+            </div>
+            <p class="case-sum">
+              내 위치 상공 반경 20km를 지나는 비행기를 지도 위에 실시간으로
+              보여주는 웹 서비스
+            </p>
+            <p class="stack">
+              <span class="hl-mark"
+                >React, TypeScript, Vite, Leaflet, Zustand, MQTT(mqtt.js,
+                Aedes), Express, Turborepo, Vitest, GitHub Actions, Vercel,
+                Render</span
+              >
+            </p>
+
+            <dl class="impact">
+              <div>
+                <dt>개요</dt>
+                <dd>
+                  공개 항공 데이터(ADS-B)를 서버가 모아 MQTT로 발행하고,
+                  브라우저가 지도 위에 실시간으로 그리는 1인 사이드 프로젝트
+                </dd>
+              </div>
+              <div>
+                <dt>임팩트</dt>
+                <dd>
+                  약 6초 간격으로 들어오는 위치 데이터를 끊김 없는 움직임으로
+                  보여주고(예측 위치와 실제 위치 차이 7~80m), 보는 사람이 늘어도
+                  외부 API 요청은 5초에 약 1번으로 고정했습니다.
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="phones">
+            <div>
+              <img
+                src="assets/phone-map.webp"
+                width="560"
+                height="1229"
+                alt="지도 모드: 인천공항 반경 20km 안 비행기 6대와 가장 가까운 비행기 카드"
+                loading="lazy"
+              />
+              <figcaption>지도 모드</figcaption>
+            </div>
+            <div>
+              <img
+                src="assets/phone-follow.webp"
+                width="560"
+                height="1229"
+                alt="따라가기: KAL011을 지도 가운데에 고정하고 지나온 경로를 점선으로 표시"
+                loading="lazy"
+              />
+              <figcaption>따라가기</figcaption>
+            </div>
+            <div>
+              <img
+                src="assets/phone-sky.webp"
+                width="560"
+                height="1229"
+                alt="하늘 모드: 폰 방향 기준으로 비행기 위치와 올려다볼 각도를 표시"
+                loading="lazy"
+              />
+              <figcaption>하늘 모드</figcaption>
+            </div>
+          </figure>
+        </header>
+
+        <div class="route">
+          <ol class="rail" aria-hidden="true">
+            <li data-step="1">왜 만들었나</li>
+            <li data-step="2">끊긴 데이터</li>
+            <li data-step="3">직접 바꾼 판단</li>
+            <li data-step="4">그 외 주요 구현</li>
+            <li data-step="5">돌아보며</li>
+          </ol>
+
+          <div class="route-body">
+            <section class="leg" data-leg="1">
+              <h3>왜 만들었나</h3>
+              <p class="pull">
+                "지금 내 머리 위로 지나가는 비행기는 뭘까?<br />어디를 봐야
+                보일까?"
+              </p>
+              <p>
+                하늘을 올려다보다 생기는 이 궁금증에, 설치 없이 링크 하나로 바로
+                답하고 싶었습니다. 그래서 내 위치 기준으로 주변 비행기를 지도에
+                보여주고, 폰을 들면 어느 방향을 봐야 하는지 알려주는 서비스를
+                만들었습니다.
+              </p>
+              <div class="why">
+                <h4>그리고 더 큰 이유</h4>
+                <p>
+                  클레빌이 만드는 관제 화면을 작게 줄여 직접 만들어 보고
+                  싶었습니다. 처음 써 보는 <b>MQTT</b>도 문서가 아니라 실제
+                  서비스로 익히고 싶었습니다.
+                </p>
+                <table class="map-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">이 프로젝트</th>
+                      <th scope="col">관제 플랫폼에서는</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>비행기 여러 대를 지도에 실시간 표시</td>
+                      <td>다중 모빌리티 위치·상태 시각화</td>
+                    </tr>
+                    <tr>
+                      <td>0.1도 격자별 MQTT 토픽 구독</td>
+                      <td>운행 구역별 데이터 구독</td>
+                    </tr>
+                    <tr>
+                      <td>retained 메시지</td>
+                      <td>화면을 연 즉시 마지막 상태 표시</td>
+                    </tr>
+                    <tr>
+                      <td>따라가기</td>
+                      <td>특정 기체 추적·모니터링</td>
+                    </tr>
+                    <tr>
+                      <td>신호 끊김, 예측 상한, 착륙 판단</td>
+                      <td>통신 두절, 상태 불확실, 임무 종료 표시</td>
+                    </tr>
+                    <tr>
+                      <td>예비 소스 자동 전환, 백오프</td>
+                      <td>데이터 소스 장애 대응</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="leg" data-leg="2">
+              <h3>끊긴 데이터를 보여 주는 법</h3>
+              <p>
+                관제 화면에서 가장 위험한 건 끊긴 대상을 살아 있는 것처럼 보여
+                주는 것입니다. 데이터가 오는 사이, 데이터가 끊긴 뒤, 끝내 오지
+                않을 때를 나눠 데이터, UI, 기획으로 풀었습니다.
+              </p>
+
+              <figure class="demo" data-demo>
+                <figcaption>
+                  <h4>데이터가 오는 사이: 직접 비교해 보기</h4>
+                  <p>
+                    데이터는 약 6초마다 도착합니다. 그 사이를 속도, 방향,
+                    선회율로 예측하고, 새 데이터가 오면 1초에 걸쳐
+                    합류시켰습니다. 매 프레임 React state를 바꾸지 않고
+                    requestAnimationFrame에서 마커를 직접 옮깁니다.
+                  </p>
+                </figcaption>
+                <div class="demo-pair">
+                  <div class="demo-pane">
+                    <p class="demo-label">받은 위치만 그릴 때</p>
+                    <canvas
+                      data-mode="raw"
+                      width="560"
+                      height="300"
+                      aria-label="받은 위치에만 비행기를 그리는 애니메이션. 6초마다 순간이동함"
+                    ></canvas>
+                  </div>
+                  <div class="demo-pane">
+                    <p class="demo-label is-x">예측 + 1초 합류</p>
+                    <canvas
+                      data-mode="interp"
+                      width="560"
+                      height="300"
+                      aria-label="예측으로 위치를 이어 그리는 애니메이션. 끊김 없이 움직임"
+                    ></canvas>
+                  </div>
+                </div>
+                <p class="demo-meta">
+                  두 화면은 같은 데이터를 받습니다. 다음 데이터까지
+                  <b data-countdown>6.0</b>초
+                </p>
+              </figure>
+
+              <div class="gap-cards">
+                <article>
+                  <span class="tag">데이터</span>
+                  <h4>예측에 상한 두기</h4>
+                  <dl>
+                    <div>
+                      <dt>문제</dt>
+                      <dd>
+                        착륙 직전에 신호가 끊기면 예측이 계속 이어져, 비행기가
+                        공항을 지나쳐 날아가 보였습니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>한 일</dt>
+                      <dd>
+                        고도별로 예측을 믿을 시간을 정했습니다. 지면 근처 3초,
+                        3000ft 아래 20초, 따라가기 중에는 3분입니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>결과</dt>
+                      <dd>
+                        신호가 끊긴 기체가 엉뚱한 곳으로 계속 날아가 보이지
+                        않습니다.
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+                <article>
+                  <span class="tag">UI</span>
+                  <h4>멈출 때도 자연스럽게</h4>
+                  <dl>
+                    <div>
+                      <dt>문제</dt>
+                      <dd>상한에서 딱 멈추면 화면이 뚝 끊겨 보였습니다.</dd>
+                    </div>
+                    <div>
+                      <dt>한 일</dt>
+                      <dd>상한에 닿으면 2초 동안 서서히 멈추게 했습니다.</dd>
+                    </div>
+                    <div>
+                      <dt>결과</dt>
+                      <dd>예측을 멈추는 순간에도 움직임이 튀지 않습니다.</dd>
+                    </div>
+                  </dl>
+                </article>
+                <article>
+                  <span class="tag">UI</span>
+                  <h4>사실과 추정을 구분해서 보여 주기</h4>
+                  <dl>
+                    <div>
+                      <dt>문제</dt>
+                      <dd>
+                        받은 위치와 예측 구간을 같은 선으로 그리면 추정이
+                        사실처럼 보였습니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>한 일</dt>
+                      <dd>
+                        따라가기 꼬리에서 실제로 받은 위치는 파란 점선, 마지막
+                        수신 위치부터 지금 예측 위치까지는 흰 점선으로
+                        그렸습니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>결과</dt>
+                      <dd>
+                        사용자가 어디까지가 데이터이고 어디부터가 추정인지 알 수
+                        있습니다.
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+                <article>
+                  <span class="tag">기획</span>
+                  <h4>데이터가 끝내 오지 않을 때: 착륙 판단</h4>
+                  <dl>
+                    <div>
+                      <dt>문제</dt>
+                      <dd>
+                        공항 지상은 수신이 약해 "지상에 있음" 신호가 끝내 오지
+                        않는 경우가 많았습니다. 데이터만으로는 착륙인지 신호
+                        끊김인지 알 수 없었습니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>한 일</dt>
+                      <dd>
+                        지상 신호를 받거나, 공항 15km 안·2000ft 아래에서 1분
+                        넘게 끊기면 착륙으로 확정합니다. 착륙한 기체는 더
+                        예측하지 않습니다.
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>한계</dt>
+                      <dd>
+                        이륙 직후 같은 조건이면 착륙으로 잘못 볼 수 있다는 걸
+                        알고 있습니다.
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+              </div>
+            </section>
+
+            <section class="leg" data-leg="3">
+              <h3>직접 바꾼 판단</h3>
+              <p>
+                AI(Claude Code)에게는 대안과 장단점만 받고, 결정은 직접 내려
+                기획서에 기록했습니다. 결정을 바꾼 이유는 모두 직접 써 보며
+                확인한 문제였습니다.
+              </p>
+
+              <ol class="log">
+                <li>
+                  <time>11.08</time>
+                  <div>
+                    <h4>기본 위치를 송파구에서 인천공항으로</h4>
+                    <p>
+                      위치 권한을 거절한 사람은 빈 지도를 보게 되는 문제.
+                      비행기가 가장 많이 지나는 곳으로 바꿔, 누가 열어도
+                      움직이는 비행기를 보게 했습니다.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <time>11.09</time>
+                  <div>
+                    <h4>격자마다 조회하던 방식을 지역 통째 조회로</h4>
+                    <p>
+                      보는 사람이 늘수록 외부 요청이 늘어 호출 제한(429)에
+                      걸렸습니다. 한반도를 한 번 조회해 격자마다 나눠 발행하도록
+                      바꿔, 요청 수가 사용자 수와 상관없게 만들었습니다.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <time>11.09</time>
+                  <div>
+                    <h4>따라가기 조회 간격 5초 → 10초 → 다시 5초</h4>
+                    <p>
+                      끊김을 줄이려고 늘렸지만, 선회 중 예측 오차가 약 4배 커져
+                      10초마다 화면이 옆으로 끌렸습니다. 직접 따라가 보며
+                      확인하고 되돌렸습니다.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <time>11.09</time>
+                  <div>
+                    <h4>착륙 화면을 경고에서 탑승권 카드로</h4>
+                    <p>
+                      따라가던 비행기가 착륙하면 경고처럼 보이는 종료 화면이
+                      떴습니다. 여정을 마무리하는 순간으로 보이도록 출발 → 도착
+                      공항, 함께한 시간, 함께 이동한 거리, 최고 고도를 담은
+                      탑승권 카드로 바꿨습니다.
+                    </p>
+                  </div>
+                </li>
+              </ol>
+            </section>
+
+            <section class="leg" data-leg="4">
+              <h3>그 외 주요 구현</h3>
+              <p>위에서 다루지 않은 구현만 정리</p>
+              <div class="impl-list">
+                <div>
+                  <h4>예비 소스 자동 전환과 백오프</h4>
+                  <p>
+                    메인 소스가 실패하면 예비 소스로 같은 요청을 재시도, 둘 다
+                    실패하면 5 → 10 → 20 → 40 → 60초로 간격을 늘림
+                  </p>
+                </div>
+                <div>
+                  <h4>소수점 픽셀 카메라 (따라가기)</h4>
+                  <p>
+                    비행기는 1초에 약 2px 움직이는데, 지도를 정수 픽셀로만
+                    옮기면 0.5초 멈췄다가 1px 툭 움직이는 문제. setView → 정수
+                    픽셀 panBy → 소수점 픽셀 이동(Leaflet 내부 _rawPanBy)으로
+                    바꿔 0.1초마다 약 0.18px씩 매끄럽게 이동, 비행기는 화면
+                    가운데에 고정
+                  </p>
+                </div>
+                <div>
+                  <h4>선회 예측</h4>
+                  <p>
+                    선회율(track_rate)이 있으면 직선 대신 원호로 예측(최대
+                    30초), 아이콘도 예측 방향으로 함께 회전. 직선 예측은 선회 중
+                    수백 m씩 어긋남
+                  </p>
+                </div>
+                <div>
+                  <h4>하늘 모드: 기기 센서와 권한</h4>
+                  <p>
+                    폰이 향한 방위를 iOS는 webkitCompassHeading, Android는 북쪽
+                    기준 절대 방향 센서 값으로 계산. iOS 센서 권한은 "센서 켜고
+                    시작하기" 버튼 클릭 안에서 요청. 거부·미지원이거나 3초 안에
+                    나침반 값이 없으면 끌어서 둘러보기로 전환, 기기별 켜는
+                    방법과 다시 시도 안내
+                  </p>
+                </div>
+                <div>
+                  <h4>코드 분할과 캐시</h4>
+                  <p>
+                    하늘 모드와 따라가기 화면은 필요할 때 로드(첫 화면 3초 뒤
+                    미리 받음), 라이브러리는 react, map, mqtt, vendor 파일로
+                    분리. 한 파일 776KB → 우리 코드 49KB(gzip 16.5KB). 우리
+                    코드만 바뀐 배포에서는 재방문 브라우저가 라이브러리를
+                    캐시에서 사용
+                  </p>
+                </div>
+                <div>
+                  <h4>오류 처리</h4>
+                  <p>
+                    화면 오류 시 빈 화면 대신 안내와 새로고침
+                    표시(ErrorBoundary). MQTT 연결 생성 중 오류가 나도 앱이
+                    멈추지 않음
+                  </p>
+                </div>
+                <div>
+                  <h4>시계 보정과 위치 개인정보</h4>
+                  <p>
+                    스냅샷을 받을 때 "내 시계 - 서버 시계"를 기억해 기기 시계가
+                    틀려도 예측이 어긋나지 않게 보정. 정확한 위치는 브라우저
+                    안에서만 쓰고, 서버에는 0.1도로 반올림한 격자만 전송
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section class="leg" data-leg="5">
+              <h3>돌아보며</h3>
+
+              <div class="reflect-quote">
+                <p class="rq-label">이번 프로젝트에서 느낀 점</p>
+                <p>
+                  실시간 데이터에는 신경 쓸 것이 많았습니다. 끊긴 데이터를
+                  어떻게 보여줄지, 6초 사이를 어떻게 채울지부터 서버 부하와 API
+                  호출 비용까지 함께 고민해야 했습니다.
+                </p>
+                <p>
+                  기술만으로 풀기 어려운 부분은 UI와 기획으로 풀었습니다.
+                  <b>사용자가 끊김을 느끼지 않는 경험을 만드는 것까지가 제 일</b
+                  >이라고 생각하며 계속 다듬을 예정입니다.
+                </p>
+              </div>
+
+              <p class="rq-label plan-label">앞으로의 계획</p>
+              <ul class="plans">
+                <li>
+                  <span class="plan-state is-now">진행 중</span>
+                  <b>따라가기를 더 부드럽게</b>
+                  <p>
+                    카메라 끊김은 소수점 픽셀 이동으로 줄였고, 가끔 남는
+                    아이콘·편명 흔들림의 원인을 찾는 중
+                  </p>
+                </li>
+                <li>
+                  <span class="plan-state">다음 기능</span>
+                  <b>출발지와 도착지</b>
+                  <p>
+                    편명과 현재 상태를 넘어, 이 비행기가 어디서 와서 어디로
+                    가는지 표시
+                  </p>
+                </li>
+                <li>
+                  <span class="plan-state">검토</span>
+                  <b>더 많은 대상</b>
+                  <p>
+                    수백, 수천 대로 늘어날 때를 대비해 마커 DOM 대신 Canvas나
+                    WebGL 렌더링 검토
+                  </p>
+                </li>
+                <li>
+                  <span class="plan-state">고민 중</span>
+                  <b>고도와 상태 구분</b>
+                  <p>
+                    비행기마다 고도와 상태를 한눈에 구분할 수 있는 UI 고민 중
+                  </p>
+                </li>
+                <li>
+                  <span class="plan-state">고민 중</span>
+                  <b>첫 접속 대기</b>
+                  <p>
+                    무료 서버라 첫 접속에 1분 가까이 걸리는 문제를, 기다리는
+                    시간을 보여 주는 방식까지 포함해 고민 중
+                  </p>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ 회사 경험 ============ -->
+      <section class="work" id="work" aria-labelledby="work-title">
+        <h2 id="work-title" class="sec-title">이큐비알홀딩스에서</h2>
+        <p class="sec-sub">
+          <b>2024.08 ~ 2026.01</b><br />
+          <span>
+            UX/UI팀 프론트엔드 개발자<br />
+            블록체인 기반 웹과 React Native 앱, 키오스크를 만들고
+            운영했습니다.</span
+          >
+        </p>
+
+        <!-- UMF -->
+        <article class="case case-sub" id="umf">
+          <header class="case-head has-side">
+            <div class="head-main">
+              <p class="kicker">2025.09, 개발자 3명 현장 상주</p>
+              <h3>UMF KOREA 2025 블록체인 입장권</h3>
+              <ul class="case-links">
+                <li>
+                  <a
+                    href="https://www.blockmedia.co.kr/archives/975245"
+                    target="_blank"
+                    rel="noopener"
+                    >관련 기사</a
+                  >
+                </li>
+              </ul>
+              <dl class="impact">
+                <div>
+                  <dt>개요</dt>
+                  <dd>
+                    회사 앱 Memble의 '초대권' 기능으로, 세계적인 EDM 축제 UMF
+                    KOREA의 블록체인 NFT 입장권을 제공한 프로젝트
+                  </dd>
+                </div>
+                <div>
+                  <dt>임팩트</dt>
+                  <dd>
+                    네트워크가 불안정한 페스티벌 현장에서 <b>300명 이상</b>이
+                    장애 없이 입장, 운영 책임자에게 <b>차년도 협업 제안</b>
+                  </dd>
+                </div>
+                <div>
+                  <dt>배운 점</dt>
+                  <dd>
+                    사용자의 실패는 사무실이 아니라 현장에서 보인다. 한 명의
+                    실패도 설계를 다시 볼 이유가 된다.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <figure class="side-shot">
+              <img
+                src="assets/umf-main.webp"
+                width="1112"
+                height="605"
+                alt="ULTRA KOREA X EQBR 페스티벌 현장과 Memble 앱의 UMF 초대권 화면"
+                loading="lazy"
+              />
+            </figure>
+          </header>
+          <div class="hl">
+            <section>
+              <div class="hl-k">
+                <span class="tag">현장 관찰</span>
+                <h4>현장에서 직접 본 실패 1건</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  관객이 직원용 '입장하기' 버튼을 직접 눌러 입장하지 못한 사례를
+                  현장에서 기록
+                </li>
+                <li>
+                  복귀 후 설계상 UX 문제가 없었는지 조사하고, 기획/디자인팀과
+                  원인과 개선 방향 논의
+                </li>
+                <li class="res">
+                  일회성 행사라 적용까지는 못 갔지만, 한 명의 실패도 넘기지 않고
+                  검토
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">안정성</span>
+                <h4>불안정한 네트워크를 전제로 설계</h4>
+              </div>
+              <ul class="pts">
+                <li>블록체인 등록을 기다리면 입장 줄이 멈추는 문제</li>
+                <li>낙관적 업데이트로 체인 처리 완료 전에 즉시 입장 처리</li>
+                <li>
+                  행사 전 네트워크 지연 테스트, 장애 대응 매뉴얼 사전 구축
+                </li>
+                <li class="res">300명 이상이 서비스 장애 없이 입장</li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">UX</span>
+                <h4>입력을 없앤 초대권</h4>
+              </div>
+              <ul class="pts">
+                <li>딥링크 쿼리스트링으로 선물 코드를 모달에 자동 입력</li>
+                <li>
+                  발행 중, 입장 가능, 입장 완료, 만료 등 NFT 입장권 상태별 UI
+                  구현
+                </li>
+                <li class="res">사용자의 코드 수동 입력 과정 제거</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <!-- Memble -->
+        <article class="case case-sub" id="memble">
+          <header class="case-head">
+            <p class="kicker">2024.10 ~ 2025.12, React Native (iOS, Android)</p>
+            <h3>1년 넘게 운영한 React Native 앱, Memble</h3>
+            <dl class="impact">
+              <div>
+                <dt>개요</dt>
+                <dd>
+                  블록체인 기반 회사 앱 Memble을 React Native(iOS, Android)로
+                  개발하고 1년 넘게 운영한 프로젝트
+                </dd>
+              </div>
+              <div>
+                <dt>임팩트</dt>
+                <dd>
+                  단일 앱을 오너별 공간으로 확장해
+                  <b>스페이스 4개 이상</b> 운영, <b>앱 다운로드 10배</b>. 개선점
+                  <b>45건 이상</b>을 스스로 찾아 약 60% 반영
+                </dd>
+              </div>
+              <div>
+                <dt>배운 점</dt>
+                <dd>
+                  운영 중인 앱에는 완성이 없다. 개발자가 꾸준히 관심을 두고 손볼
+                  때 앱이 살아 있고, 사용자에게 계속 가치를 전할 수 있다.
+                </dd>
+              </div>
+            </dl>
+          </header>
+          <div class="hl">
+            <section>
+              <div class="hl-k">
+                <span class="tag">마이그레이션</span>
+                <h4>단일 앱을 '앱 속 앱' 구조로</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  오너별 독립 공간(스페이스) 요구사항을 '앱 속 앱'으로 추상화,
+                  설계와 마이그레이션 단독 수행
+                </li>
+                <li>
+                  Stack 하나 → 메인 Stack + 스페이스 전용 Stack, Bottom Tab 중첩
+                  구조
+                </li>
+                <li>스페이스별 탭 메뉴를 서버 데이터로 구성하는 확장 구조</li>
+                <li class="res">
+                  커뮤니티, 초대권, 샵 등 다른 도메인의 스페이스 4개 이상 운영
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">트러블슈팅</span>
+                <h4>딥링크와 전환 지연</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  중첩 네비게이션에서 딥링크 진입 실패 → 목적지 유형(홈, Tab,
+                  Stack)별 분기와 reset 기반 뒤로가기 경로로 안정화
+                </li>
+                <li>
+                  진입마다 스페이스 정보를 새로 불러와 지연 → 마지막 진입 정보를
+                  전역 상태로 관리해 재진입 시 API 호출 제거
+                </li>
+                <li>
+                  브랜딩 애니메이션으로 체감 대기 시간 감소 및 “또 다른
+                  공간”으로 진입하는 유저 경험 제공
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">레거시 정리</span>
+                <h4>멈추지 않고 걷어내기</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  React Native 0.74 → 0.78 업그레이드, iOS 18 SDK 대응과 호환
+                  오류 6건 수정
+                </li>
+                <li>영어 번역문이 키였던 언어팩을 역할 기반 키로 개편</li>
+                <li>
+                  4개 페이지에 복사돼 있던 주문/결제 상태 표시를 공통 컴포넌트로
+                  통합
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">UX 개선</span>
+                <h4>아무도 요청하지 않은 불편 45건</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  작은 닫기 버튼 터치 영역 확장, 커뮤니티 사진 확대/축소 기능
+                  제안 및 추가
+                </li>
+                <li>
+                  안드로이드 시작 화면 중복 노출, 토스트와 바텀시트 터치 영역
+                  충돌 해결
+                </li>
+                <li>
+                  진행 상황, 적용 버전, 우선순위를 문서로 관리하며 정규 업무와
+                  병행
+                </li>
+                <li>
+                  바텀시트는 공통 컴포넌트로, 문구는 기획팀과 UX 라이팅 규칙으로
+                  정리
+                </li>
+                <li class="res">
+                  45건 중 약 60% 반영, 화면마다 반복되던 논의 감소
+                </li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <!-- 키오스크 -->
+        <article class="case case-sub" id="kiosk">
+          <header class="case-head">
+            <p class="kicker">
+              2025.11 ~ 2025.12, macOS(Swift) WKWebView + React
+            </p>
+            <h3>광주과학고 AI 키오스크</h3>
+            <dl class="impact">
+              <div>
+                <dt>개요</dt>
+                <dd>
+                  광주과학고 학생들이 체력·건강 관리와 체육 교과 활동을 하는
+                  키오스크 및 교사용 웹을 만든 프로젝트
+                </dd>
+              </div>
+              <div>
+                <dt>임팩트</dt>
+                <dd>
+                  처음 접한 Swift 환경에서 학생용 키오스크와 교사용 관리자 웹
+                  MVP를 <b>3주 안에</b> 배포
+                </dd>
+              </div>
+              <div>
+                <dt>배운 점</dt>
+                <dd>
+                  책상 앞에서 짠 코드만으로는 키오스크 앞에 선 사용자를 다 담을
+                  수 없다. 기기와 상황에 맞춰 유연하게 대응하는 개발자가 되자.
+                </dd>
+              </div>
+            </dl>
+          </header>
+          <div class="hl">
+            <section>
+              <div class="hl-k">
+                <span class="tag">실기기</span>
+                <h4>실기기에서만 드러난 문제</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  터치스크린 실기기에서 네이티브 가상 키보드가 뜨지 않는 문제를
+                  직접 발견
+                </li>
+                <li class="res">
+                  React 가상 키보드 컴포넌트를 직접 구현해 해결
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">인증</span>
+                <h4>웹과 네이티브를 잇는 토큰 인증</h4>
+              </div>
+              <ul class="pts">
+                <li>macOS(Swift) WKWebView 기반 학생용 키오스크 앱 개발</li>
+                <li class="res">
+                  네이티브 로그인 토큰을 웹뷰에 주입해 토큰 기반 인증 연동
+                </li>
+              </ul>
+            </section>
+            <section>
+              <div class="hl-k">
+                <span class="tag">기획 참여</span>
+                <h4>비어 있던 기획 채우기</h4>
+              </div>
+              <ul class="pts">
+                <li>
+                  화면설계서에 없던 랭킹 동점 규칙, 노출 개수, 대시보드 UI를
+                  직접 설계해 제안
+                </li>
+                <li class="res">
+                  기획에 반영, 학생 관리 대시보드를 포함한 교사용 관리자 웹 개발
+                </li>
+              </ul>
+            </section>
+          </div>
+        </article>
+
+        <!-- 그 밖에 -->
+        <div class="etc">
+          <h3 class="etc-title">그 밖에</h3>
+          <article class="etc-item">
+            <div class="etc-k">
+              <b>인도네시아 대학 블록체인 학생증</b>
+              <span>2025.08, TF (FE 1, BE 2)</span>
+              <a
+                href="https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03493206642399176"
+                target="_blank"
+                rel="noopener"
+                >관련 기사</a
+              >
+            </div>
+            <ul class="pts">
+              <li>
+                모바일 학생증, NFC 신원 인증 웹의 UI 디자인부터 구현, API 연동,
+                배포까지 프론트엔드 단독 수행
+              </li>
+              <li>회원가입, 발급, 검증, 재발급 등 단계별 접속 화면 분기</li>
+              <li>
+                기획/디자인 인력이 없는 TF에서 Slack 캔버스로 API 명세 공유
+                창구를 만들고 QA 진행 주도
+              </li>
+              <li class="res">
+                인도네시아 34개 대학, 약 36만 명 대상 출시, 한국 DID 기술의 해외
+                국가 단위 고등교육 첫 적용 사례
+              </li>
+            </ul>
+          </article>
+          <article class="etc-item">
+            <div class="etc-k">
+              <b>관리자 공통 컴포넌트 패키지</b>
+              <span>B2B2C 관리자 서비스</span>
+            </div>
+            <ul class="pts">
+              <li>
+                관리자 서비스용 공통 컴포넌트 약 17개 개발, npm pack으로
+                패키지화
+              </li>
+              <li class="res">실제 관리자 서비스(백스페이스) 개발에 적용</li>
+            </ul>
+          </article>
+        </div>
       </section>
 
-      <!-- 3. 방향 전환 -->
-      <section class="leg" data-leg="3">
-        <h3><span class="leg-n">3</span>개발 중 직접 판단하고 방향을 바꾼 부분</h3>
+      <!-- ============ AI와 함께한 1인 개발 (타임라인) ============ -->
+      <section class="ai-tl" id="ai" aria-labelledby="ai-title">
+        <h2 id="ai-title" class="sec-title">AI와 함께한 1인 개발</h2>
+        <p class="sec-sub">
+          기획, 디자인, 개발, 배포를 혼자 하면서 프로젝트마다 겪은 문제를 다음
+          프로젝트의 규칙으로 바꿨습니다. 그 결과 개발 기간이 2개월에서 3일로
+          줄었습니다.
+        </p>
 
-        <ol class="log">
-          <li>
-            <time>11.08</time>
-            <div>
-              <h4>기본 위치를 송파구에서 인천공항으로</h4>
-              <p>위치 권한을 거절한 리뷰어가 빈 지도를 보게 되는 문제. 비행기가 가장 많이 지나는 곳으로 바꿔, 누가 열어도 움직이는 비행기를 보게 했습니다.</p>
+        <ol class="tl" id="timeline">
+          <li class="tl-item">
+            <div class="tl-date"><time>2025.10</time><span>계기</span></div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <h3>업무 자동화용 AI 라이팅 도구 개인 개발 시도</h3>
+              <ul class="pts">
+                <li>
+                  단순 반복 업무를 줄이기 위해 AI 라이팅 도구를 개인적으로
+                  만들기 시작
+                </li>
+                <li class="res">
+                  AI를 제대로 활용하지 못하고 있다는 한계를 체감하고, AI와 함께
+                  서비스를 끝까지 완성해 보기로 결심
+                </li>
+              </ul>
             </div>
           </li>
-          <li>
-            <time>11.09</time>
-            <div>
-              <h4>격자마다 조회하던 방식을 지역 통째 조회로</h4>
-              <p>보는 사람이 늘수록 외부 요청이 늘어 호출 제한(429)에 걸렸습니다. 한반도를 한 번 조회해 격자마다 나눠 발행하도록 바꿔, 요청 수가 사용자 수와 상관없게 만들었습니다.</p>
+
+          <li class="tl-item">
+            <div class="tl-date"><time>2026.07</time><span>시행착오</span></div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>I HATE YOU</h3>
+                <div class="tl-actions">
+                  <a
+                    class="icon-btn"
+                    href="https://ihateyou-orpin.vercel.app"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="I HATE YOU 서비스 열기"
+                    title="서비스 열기"
+                    ><svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                      /></svg></a
+                  ><a
+                    class="icon-btn"
+                    href="https://github.com/jin-dooly/IHATEYOU"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="I HATE YOU GitHub 저장소"
+                    title="GitHub"
+                    ><svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                      /></svg
+                  ></a>
+                </div>
+              </div>
+              <p class="tl-sub">스트레스 해소용 캐릭터 인터랙션 웹앱</p>
+              <p class="tl-stack">React, Zustand, Web Audio API</p>
+              <div class="dur">
+                <span class="dur-bar" style="--d: 60"></span><b>약 2개월</b>
+              </div>
+              <div class="tl-grid">
+                <div>
+                  <h4>문제</h4>
+                  <ul class="pts">
+                    <li>
+                      기획한 AI(Claude)와 개발한 AI(Claude Code) 사이에서 맥락이
+                      끊겨, 데모와 기획을 개발에 활용하지 못함
+                    </li>
+                    <li>
+                      기획서 없이 대략적인 화면설계만으로 기능/페이지 단위로
+                      요청해, 결과물이 매번 달라짐
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>배운 점</h4>
+                  <p class="learn">
+                    AI와 일할 때도 회사처럼 기획, 화면설계와 디자인, 개발로
+                    이어지는 프로세스와 공유된 기준 문서가 필요하다.
+                  </p>
+                </div>
+              </div>
+              <div class="impl">
+                <h4>주요 구현</h4>
+                <ul class="pts">
+                  <li>
+                    SVG path를 히트 영역으로 재사용해 머리카락 인터랙션 직접
+                    구현
+                  </li>
+                  <li>
+                    Web Audio API로 실시간 마이크 음량을 0~100 점수로 정규화
+                  </li>
+                </ul>
+              </div>
             </div>
           </li>
-          <li>
-            <time>11.09</time>
-            <div>
-              <h4>메인 데이터 소스를 바꿨다가, 다시 되돌림</h4>
-              <p>호출 제한 때문에 adsb.fi로 옮겼지만, 응답이 약 2초 늦고 시각이 초 단위라 따라가기가 어색해 보였습니다. 제한 문제는 통째 조회와 요청 간격으로 풀고 adsb.lol로 되돌렸습니다.</p>
+
+          <li class="tl-item">
+            <div class="tl-date">
+              <time>2026.09</time><span>프로세스 도입</span>
+            </div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>dear-mind</h3>
+                <div class="tl-actions">
+                  <a
+                    class="icon-btn"
+                    href="https://dear-mind-phi.vercel.app"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="dear-mind 서비스 열기"
+                    title="서비스 열기"
+                    ><svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                      /></svg></a
+                  ><a
+                    class="icon-btn"
+                    href="https://github.com/jin-dooly/dear-mind"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="dear-mind GitHub 저장소"
+                    title="GitHub"
+                    ><svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                      /></svg
+                  ></a>
+                </div>
+              </div>
+              <p class="tl-sub">AI 자기성찰 기록 서비스</p>
+              <p class="tl-stack">Next.js, Supabase, Claude API, Vercel</p>
+              <div class="dur">
+                <span class="dur-bar" style="--d: 21"></span><b>약 3주</b>
+              </div>
+              <div class="tl-grid">
+                <div>
+                  <h4>바꾼 점</h4>
+                  <ul class="pts">
+                    <li>
+                      기획서(컨셉, 기술 스택, 스프린트 범위)를 먼저 써서 기준
+                      문서로 두고, 화면설계 → 디자인 → 개발 순서로 진행
+                    </li>
+                    <li>
+                      작업을 단계별로 나누고 진행 상황을 기준 문서에 계속
+                      업데이트해 맥락 유지
+                    </li>
+                    <li>
+                      결정이 필요할 때마다 기획자, 디자이너 관점의 대안과
+                      장단점을 분석하게 한 뒤 직접 결정
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>새로 생긴 문제</h4>
+                  <ul class="pts">
+                    <li>개발 속도가 빨라지자 이해하지 못한 코드가 쌓임</li>
+                    <li>
+                      기능을 하나하나 직접 써 보며 확인하느라 검증에 시간이 오래
+                      걸림
+                    </li>
+                  </ul>
+                  <h4>배운 점</h4>
+                  <p class="learn">
+                    속도가 빨라질수록 AI가 왜 이런 코드를 짰는지 확인하고,
+                    효율적으로 검증하는 체계가 필요하다.
+                  </p>
+                </div>
+              </div>
+              <div class="impl">
+                <h4>주요 구현</h4>
+                <ul class="pts">
+                  <li>
+                    Claude Structured Output(Zod) 연동으로 AI 응답을 구조화
+                  </li>
+                  <li>
+                    LLM 호출이 실패하면 질문 은행으로 대체해 서비스가 멈추지
+                    않게 설계, 일자별 질문 저장으로 중복 호출 방지
+                  </li>
+                  <li>
+                    Next.js App Router 서버 컴포넌트로 사용자 데이터를 서버에서
+                    조회해 렌더링(SSR), Claude API 호출과 Supabase 인증은 Server
+                    Actions로 서버에만 둠
+                  </li>
+                </ul>
+              </div>
             </div>
           </li>
-          <li>
-            <time>11.09</time>
-            <div>
-              <h4>따라가기 조회 간격 5초 → 10초 → 다시 5초</h4>
-              <p>끊김을 줄이려고 늘렸지만, 선회 중 예측 오차가 약 4배 커져 10초마다 화면이 옆으로 끌렸습니다. 직접 따라가 보며 확인하고 되돌렸습니다.</p>
+
+          <li class="tl-item">
+            <div class="tl-date">
+              <time>2026.10</time><span>검증 체계</span>
+            </div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>오목</h3>
+                <div class="tl-actions">
+                  <a
+                    class="icon-btn"
+                    href="https://gomoku-monorepo.vercel.app"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="오목 서비스 열기"
+                    title="서비스 열기"
+                    ><svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                      /></svg></a
+                  ><a
+                    class="icon-btn"
+                    href="https://github.com/jin-dooly/gomoku-monorepo"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="오목 GitHub 저장소"
+                    title="GitHub"
+                    ><svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                      /></svg
+                  ></a>
+                </div>
+              </div>
+              <p class="tl-sub">실시간 2인 대전 웹 게임</p>
+              <p class="tl-stack">
+                React, NestJS, Socket.IO, Turborepo, Vitest
+              </p>
+              <div class="dur">
+                <span class="dur-bar" style="--d: 3"></span><b>3일</b>
+              </div>
+              <div class="tl-grid">
+                <div>
+                  <h4>바꾼 점</h4>
+                  <ul class="pts">
+                    <li>
+                      기능마다 백엔드/프론트엔드 작업을 나누고, AI가 주요 변경
+                      사항과 이유를 설명하게 한 뒤 직접 읽고 각각 커밋
+                    </li>
+                    <li>단위 테스트 17개와 CI로 AI가 만든 코드를 자동 검증</li>
+                    <li>
+                      여러 세션을 팀원처럼 병렬로 운영하고, 결정 사항은 공유
+                      기준 문서에 업데이트해 같은 목표 유지
+                    </li>
+                    <li>
+                      가끔 생기던 AI의 독단적 결정을 막기 위해 "의사결정은
+                      사람이 한다"를 작업 규칙(CLAUDE.md)에 추가
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>결과</h4>
+                  <ul class="pts">
+                    <li class="res">3일 만에 화면 11개 규모 서비스 배포</li>
+                  </ul>
+                  <h4>배운 점</h4>
+                  <p class="learn">
+                    AI로 개발 속도가 빨라질수록 사람의 역할은 판단과 검증에
+                    집중해야 한다. 단순 구현에 쓰던 시간이 줄어든 만큼 최적화와
+                    UX에 더 집중할 수 있게 됐다.
+                  </p>
+                </div>
+              </div>
+              <div class="impl">
+                <h4>주요 구현</h4>
+                <ul class="pts">
+                  <li>
+                    폰트 서브셋으로 초기 폰트 용량 <b>약 97% 감소</b> (1.6MB →
+                    40KB)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+
+          <li class="tl-item tl-now">
+            <div class="tl-date"><time>2026.11</time><span>적용</span></div>
+            <div class="tl-dot" aria-hidden="true"></div>
+            <div class="tl-body">
+              <div class="tl-head">
+                <h3>내 머리 위 비행기</h3>
+                <div class="tl-actions">
+                  <a
+                    class="icon-btn"
+                    href="https://flight-overhead.vercel.app"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="내 머리 위 비행기 서비스 열기"
+                    title="서비스 열기"
+                    ><svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                      /></svg></a
+                  ><a
+                    class="icon-btn"
+                    href="https://github.com/jin-dooly/flight-overhead"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="내 머리 위 비행기 GitHub 저장소"
+                    title="GitHub"
+                    ><svg viewBox="0 0 16 16" aria-hidden="true">
+                      <path
+                        fill="currentColor"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                      /></svg
+                  ></a>
+                </div>
+              </div>
+              <p class="tl-sub">지금까지의 방식을 모두 적용한 프로젝트</p>
+              <p class="tl-stack">React, MQTT, Leaflet, Zustand, Express</p>
+              <div class="dur dur-live"><b>진행중</b></div>
+              <ul class="pts">
+                <li>
+                  기획서(PLAN.md)를 기준 문서로 두고, 바뀐 결정은 날짜와 이유를
+                  함께 기록
+                </li>
+                <li>
+                  서버는 AI에게 맡기고 아침에 작업 보고서(HANDOFF)로 확인,
+                  프론트엔드는 직접 단계별로 확인하며 개발
+                </li>
+                <li>순수 함수는 테스트와 CI로 검증</li>
+              </ul>
+              <p class="tl-more"><a href="#flight">메인 사례 다시 보기</a></p>
             </div>
           </li>
         </ol>
-
-        <!-- 인터랙티브 데모: 보간 -->
-        <figure class="demo" data-demo>
-          <figcaption>
-            <h4>직접 비교해 보기: 받은 위치만 그릴 때와 예측으로 이을 때</h4>
-            <p>데이터는 약 6초마다 도착합니다. 그 사이를 속도, 방향, 선회율로 예측하고, 새 데이터가 오면 1초에 걸쳐 합류시켰습니다. 매 프레임 React state를 바꾸지 않고 requestAnimationFrame에서 마커를 직접 옮깁니다.</p>
-          </figcaption>
-          <div class="demo-stage">
-            <canvas width="720" height="300" aria-label="비행기 보간 비교 애니메이션"></canvas>
-            <div class="demo-controls" role="radiogroup" aria-label="그리는 방식">
-              <button role="radio" aria-checked="false" data-mode="raw">받은 위치만</button>
-              <button role="radio" aria-checked="true" data-mode="interp">예측 + 1초 합류</button>
-            </div>
-            <p class="demo-meta">다음 데이터까지 <b data-countdown>6.0</b>초</p>
-          </div>
-        </figure>
-
-        <div class="todo">
-          AI(Claude Code)가 제안한 방향을 직접 바꾸거나 거절한 순간 하나 (예: Socket.IO 대신 MQTT를 고른 이유, 프론트는 직접 단계별로 확인하며 만든 이유)
-        </div>
       </section>
+    </main>
 
-      <!-- 4. 사용자 반응 -->
-      <section class="leg" data-leg="4">
-        <h3><span class="leg-n">4</span>출시 후 실제 사용자 반응으로 배우고 고친 것</h3>
-        <div class="todo">
-          누구에게 어떻게 보여줬는지 (예: 지인 5명에게 링크 공유, 11.09)<br />
-          실제로 들은 반응을 그대로 1~3개 (지어내지 말고 받은 것만)
+    <footer class="foot" id="contact">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <p class="foot-name">이진이</p>
+          <p class="foot-line">현장을 관찰하는 프론트엔드 개발자</p>
+          <!-- ✏️ 노션 이력서를 PDF로 내보내 assets/이진이_이력서.pdf 로 저장해 주세요 -->
+          <a class="foot-pdf" href="assets/이진이_이력서.pdf" download
+            >이력서 PDF 받기</a
+          >
         </div>
-        <div class="fix">
-          <div class="fix-col">
-            <p class="fix-k">들은 말</p>
-            <div class="todo">"..."</div>
+        <dl class="foot-contact">
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:jj074567@gmail.com">jj074567@gmail.com</a></dd>
           </div>
-          <div class="fix-col">
-            <p class="fix-k">고친 것</p>
-            <div class="todo">어떤 화면/동작을 어떻게 바꿨는지, 커밋 링크</div>
+          <div>
+            <dt>Phone</dt>
+            <dd>010-7744-0745</dd>
           </div>
-        </div>
-        <div class="todo">배운 점 한두 줄 (예상과 달랐던 사용 방식)</div>
-      </section>
-    </div>
-  </div>
-</article>
+          <div>
+            <dt>GitHub</dt>
+            <dd>
+              <a
+                href="https://github.com/jin-dooly"
+                target="_blank"
+                rel="noopener"
+                >github.com/jin-dooly</a
+              >
+            </dd>
+          </div>
+        </dl>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 이진이</span>
+        <a href="#top">맨 위로</a>
+      </div>
+    </footer>
 
-<!-- ============ 회사 경험 ============ -->
-<section class="work" aria-labelledby="work-title">
-  <h2 id="work-title" class="work-title">이큐비알홀딩스에서 <span>2024.08 ~ 2026.01, UX/UI팀 프론트엔드 개발자</span></h2>
-
-  <!-- CASE 2: UMF -->
-  <article class="case case-sub" id="umf" data-case>
-    <header class="case-head">
-      <p class="case-cs">EQ025 <span>2025.09, 개발자 3명 현장 상주</span></p>
-      <h3>UMF KOREA 2025 블록체인 입장권</h3>
-      <p class="case-sum">뮤직 페스티벌 입장 현장에서 NFT 입장권으로 300명 이상의 입장을 지원</p>
-      <ul class="case-links"><li><a href="https://www.blockmedia.co.kr/archives/975245" target="_blank" rel="noopener">관련 기사</a></li></ul>
-    </header>
-    <div class="legs-grid">
-      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
-        <p>현장 네트워크는 불안정하고, 블록체인 등록에는 지연 시간이 있습니다. 체인 처리를 기다리면 입장 줄이 멈춥니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
-        <div class="todo">행사 전 준비 기간에 넣은 것과 뺀 것, 그 기준 (예: 현장 장애 대응을 화면 꾸밈보다 먼저)</div></section>
-      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
-        <p>낙관적 업데이트로 체인 처리 완료를 기다리지 않고 즉시 입장 처리. 행사 전 네트워크 지연 테스트와 장애 대응 매뉴얼을 미리 만들었습니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">4</span>현장 반응</h4>
-        <p>관객이 직원용 '입장하기' 버튼을 직접 눌러 입장하지 못한 1건을 기록해, 복귀 후 기획/디자인팀과 원인을 다시 살폈습니다. 운영 책임자에게 기존 업체 대비 높은 만족도와 차년도 협업 제안을 받았습니다.</p></section>
-    </div>
-    <figure class="shot shot-sm"><div class="todo todo-media">현장 사진 또는 입장권 상태별 화면 (발행 중, 입장 가능, 입장 완료, 만료)</div></figure>
-  </article>
-
-  <!-- CASE 3: 키오스크 -->
-  <article class="case case-sub" id="kiosk" data-case>
-    <header class="case-head">
-      <p class="case-cs">EQ112 <span>2025.11 ~ 2025.12, 3주 MVP</span></p>
-      <h3>광주과학고 AI 키오스크</h3>
-      <p class="case-sum">macOS WKWebView 기반 학생용 키오스크와 교사용 관리자 웹</p>
-    </header>
-    <div class="legs-grid">
-      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
-        <p>터치스크린 실기기에서만 네이티브 가상 키보드가 뜨지 않았습니다. 화면설계서에는 랭킹 동점 규칙과 노출 개수가 비어 있었습니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
-        <div class="todo">3주 안에 배포하려고 덜어낸 기능과 기준</div></section>
-      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
-        <p>React 가상 키보드 컴포넌트를 직접 구현했고, 네이티브 로그인 토큰을 웹뷰에 주입해 토큰 기반 인증을 연동했습니다. 비어 있던 랭킹 규칙과 대시보드 UI는 직접 설계해 기획에 반영했습니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">4</span>사용 반응</h4>
-        <div class="todo">학교에서 실제로 써본 반응과, 그 뒤 고친 점</div></section>
-    </div>
-    <figure class="shot shot-sm"><div class="todo todo-media">키오스크 화면과 가상 키보드</div></figure>
-  </article>
-
-  <!-- CASE 4: Memble UX -->
-  <article class="case case-sub" id="memble" data-case>
-    <header class="case-head">
-      <p class="case-cs">EQ045 <span>2024.12 ~ 2025.12, React Native 앱</span></p>
-      <h3>Memble, 아무도 요청하지 않은 UX 개선 45건</h3>
-      <p class="case-sum">담당 앱에서 개선점을 스스로 찾아 우선순위와 적용 버전을 관리하며 반영</p>
-    </header>
-    <div class="legs-grid">
-      <section class="leg-s"><h4><span class="leg-n">1</span>문제</h4>
-        <p>작은 닫기 버튼, 토스트와 바텀시트의 터치 충돌, 화면마다 다른 바텀시트와 문구. 요청한 사람은 없었지만 매일 쓰는 사람은 불편한 것들이었습니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">2</span>우선순위</h4>
-        <div class="todo">45건 중 약 60%를 처리했어요. 무엇을 먼저 하고 무엇을 미뤘는지, 그 기준</div></section>
-      <section class="leg-s"><h4><span class="leg-n">3</span>판단</h4>
-        <p>하나씩 고치는 대신 디자인팀과 바텀시트를 공통 컴포넌트로 통합하고, 기획팀과 UX 라이팅 규칙을 세웠습니다.</p></section>
-      <section class="leg-s"><h4><span class="leg-n">4</span>반응</h4>
-        <p>규칙을 세운 뒤 화면마다 반복되던 논의가 줄었습니다.</p>
-        <div class="todo">사용자나 팀에게 들은 구체적인 반응이 있으면 추가</div></section>
-    </div>
-    <figure class="shot shot-sm"><div class="todo todo-media">개선 전/후 화면 (바텀시트 통합, 터치 영역)</div></figure>
-  </article>
-</section>
-
-</main>
-
-<footer class="foot">
-  <p class="foot-line">끝까지 봐 주셔서 감사합니다.</p>
-  <ul class="contact">
-    <li><a href="mailto:jj074567@gmail.com">jj074567@gmail.com</a></li>
-    <li><a href="tel:01077440745">010-7744-0745</a></li>
-    <li><a href="https://github.com/jin-dooly" target="_blank" rel="noopener">github.com/jin-dooly</a></li>
-  </ul>
-  <a class="to-top" href="#top">처음으로</a>
-</footer>
-
-<script src="main.js"></script>
-</body>
+    <script src="main.js"></script>
+  </body>
 </html>
