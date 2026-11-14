@@ -60,7 +60,10 @@
   .reveal.in{opacity:1;transform:none}
 
   /* ── 2. 요약 ── */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .sec-h .sub{font-size:clamp(17px,1.6vw,20px);color:var(--ink);opacity:.8;margin-top:6px}
+  .sgroups{display:grid;grid-template-columns:2fr 3fr;gap:28px}
+  .sg h4{font:700 12px ui-monospace,monospace;color:var(--acc);letter-spacing:.06em;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+  .stats{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:14px;height:calc(100% - 42px)}
   .stats div{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--card)}
   .stats b{display:block;font-size:34px;letter-spacing:-.04em}
   .stats b small{font-size:16px;color:var(--mute);margin-left:2px}
@@ -151,7 +154,7 @@
   @media (max-width:900px){
     header nav{display:none}
     .stick{grid-template-columns:1fr;align-content:center;gap:20px}.count{font-size:28vw}.grass-wrap{max-width:none}.proj{min-height:170px}
-    .stats{grid-template-columns:1fr 1fr}
+    .sgroups{grid-template-columns:1fr}.stats{grid-auto-flow:row;grid-template-columns:1fr 1fr;height:auto}.sg:last-child .stats div:first-child{grid-column:1/-1}.sec-h h2 br{display:none}
     .p{grid-template-columns:1fr}.p .side{border-right:none;border-bottom:1px solid var(--line);flex-direction:row;align-items:baseline;gap:14px;flex-wrap:wrap}.p .side .tag{margin-top:0;margin-left:auto}
     .cols{grid-template-columns:1fr}
     .split,.co,.skills{grid-template-columns:1fr}.co-side{position:static}
