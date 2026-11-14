@@ -22,3 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# 디자인 시안 (배포, 저장소 모두 제외)
+drafts/
