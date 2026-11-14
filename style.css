@@ -12,7 +12,7 @@
   header nav a:hover{color:var(--acc)}
 
   /* ── 1. 달력 히어로 ── */
-  .scroller{height:520vh;position:relative}
+  .scroller{height:300vh;position:relative}
   .stick{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;padding:0 6vw;overflow:hidden}
   .stick>*{min-width:0}
   .eyebrow{font:700 13px ui-monospace,monospace;color:var(--acc);letter-spacing:.08em}
@@ -36,11 +36,10 @@
   .g-days span{display:flex;align-items:center}
   .grass{display:grid;grid-template-rows:repeat(7,var(--c));grid-auto-columns:var(--c);grid-auto-flow:column;gap:var(--g)}
   .grass i{width:var(--c);height:var(--c);border-radius:calc(var(--c)*.2);background:var(--cell);border:1px solid rgba(255,255,255,.03);transition:background .35s,transform .35s;position:relative}
-  .grass i.blank{visibility:hidden}
-  .grass i.past{background:#55701c}
-  .grass i.after{background:#2c3814}
+  .grass i.past{background:rgba(198,255,61,.28)}
   .grass i.lit{background:var(--acc);transform:scale(1.08)}
   .grass i.today{outline:2px solid var(--ink);outline-offset:1px}
+  .grass i:hover{z-index:10}
   .grass i:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:#0e0f12;font:600 11px Pretendard,sans-serif;padding:5px 8px;border-radius:6px;white-space:nowrap;z-index:5;pointer-events:none}
   .g-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--mute)}
   .g-foot .lg{display:flex;gap:12px;align-items:center}
@@ -54,6 +53,8 @@
   .sec-h .no{font:700 13px ui-monospace,monospace;color:var(--acc)}
   .sec-h h2{font-size:clamp(28px,3.4vw,40px);letter-spacing:-.035em;line-height:1.25}
   .sec-h h2 em{font-style:normal;color:var(--acc)}
+  .hello{flex-basis:100%;font-size:clamp(17px,1.6vw,20px);color:var(--mute);margin-bottom:10px;line-height:1.6}
+  .hello b{color:var(--ink)}
   .sec-h p{flex-basis:100%;color:var(--mute);font-size:15px;line-height:1.6}
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{opacity:1;transform:none}

@@ -8,7 +8,7 @@ const P = [
     p: '<b>기획서를 기준 문서로</b> 두고 화면설계, 디자인, 개발 순서로 진행했습니다. Next.js, Supabase, Vercel.' },
   { name: '오목', from: '2026-10-17', to: '2026-10-19', e: '2026.10  검증 체계',
     p: '화면 11개. AI가 변경 이유를 설명하면 <b>직접 읽고 커밋</b>하고, 테스트와 CI로 검증했습니다.' },
-  { name: '내 머리 위 비행기', from: '2026-11-08', to: '2026-11-09', after: true, e: '2026.11  적용',
+  { name: '내 머리 위 비행기', from: '2026-11-08', to: '2026-11-09', e: '2026.11  적용',
     p: '<b>2일 만에 MVP 배포.</b> 구현은 AI 팀원이, 판단과 검증은 직접합니다. 지금도 진행중입니다.' },
 ];
 
@@ -21,7 +21,7 @@ const now = new Date();
 const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const first = parse(P[0].from);
 const last = new Date(Math.max(today, parse(P[P.length - 1].to)));
-const start = new Date(first); start.setDate(first.getDate() - first.getDay()); // 그 주 일요일
+const start = new Date(first); start.setDate(first.getDate() - first.getDay()); // 그 주 일요일부터 (시작 전 칸은 비워 둠)
 
 const grass = document.getElementById('grass');
 const gMonths = document.getElementById('gMonths');
@@ -29,8 +29,7 @@ const cells = [];
 let col = 0, lastMonth = -1;
 for (let d = new Date(start); d <= last; d.setDate(d.getDate() + 1)) {
   const el = document.createElement('i');
-  if (d < first) el.className = 'blank';
-  else {
+  {
     el.dataset.key = key(d);
     el.dataset.tip = `${d.getMonth() + 1}월 ${d.getDate()}일`;
     if (+d === +today) { el.classList.add('today'); el.dataset.tip += ' · 오늘'; }
@@ -51,10 +50,6 @@ P.forEach((p, i) => {
   p.days = days(a, b);
   p.cells = cells.filter((c) => c.dataset.key && c.dataset.key >= p.from && c.dataset.key <= p.to);
   p.cells.forEach((c) => (c.dataset.tip += ` · ${p.name}`));
-  if (p.after) {
-    p.afterCells = cells.filter((c) => c.dataset.key && c.dataset.key > p.to && c.dataset.key <= key(today));
-    p.afterCells.forEach((c) => (c.dataset.tip += ` · ${p.name} (MVP 이후)`));
-  }
 });
 document.getElementById('gRange').textContent =
   `${first.getFullYear()}.${first.getMonth() + 1}.${first.getDate()} ~ 오늘`;
@@ -88,11 +83,10 @@ function set(i) {
   proj.innerHTML = `<h2>${p.name}</h2><p>${p.p}</p>`;
   steps.forEach((s, k) => s.classList.toggle('on', k <= i));
   animNum(p.days);
-  cells.forEach((c) => { c.classList.remove('lit', 'past', 'after'); c.style.transitionDelay = '0s'; });
+  cells.forEach((c) => { c.classList.remove('lit', 'past'); c.style.transitionDelay = '0s'; });
   P.forEach((q, k) => { if (k < i) q.cells.forEach((c) => c.classList.add('past')); });
   const step = Math.min(30, 700 / p.cells.length);
   p.cells.forEach((c, k) => { c.style.transitionDelay = k * step + 'ms'; c.classList.add('lit'); });
-  if (p.afterCells) p.afterCells.forEach((c) => c.classList.add('after'));
 }
 
 const sc = document.getElementById('scroller'), hint = document.getElementById('hint'), hd = document.getElementById('hd');
