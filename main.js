@@ -231,28 +231,36 @@ function openDetail(i) {
   if (i === openIdx) return;
   openIdx = i;
   pdetail.innerHTML = document.getElementById('pd' + i).innerHTML;
-  pcards.forEach((c, k) => { c.classList.toggle('on', k === i); c.setAttribute('aria-expanded', String(k === i)); });
+  pcards.forEach((c, k) => c.classList.toggle('on', k === i));
   (narrow.matches ? pcards[i] : wgrid).after(pdetail);
   pdetail.hidden = false;
   pdetail.style.animation = 'none'; void pdetail.offsetWidth; pdetail.style.animation = '';
 }
 pcards.forEach((c, i) => {
   c.addEventListener('mouseenter', () => { if (canHover.matches) openDetail(i); });
-  c.addEventListener('focus', () => openDetail(i));
+  c.addEventListener('focusin', () => openDetail(i)); // 키보드로 카드 안 링크에 오면 그 카드의 상세
   c.addEventListener('click', (e) => { if (!e.target.closest('a')) openDetail(i); });
 });
 openDetail(0);
 
 /* 헤더: 지금 보고 있는 섹션 표시 */
-const navLinks = [...document.querySelectorAll('header nav a')];
+const navWrap = document.querySelector('header nav');
+const navLinks = [...navWrap.querySelectorAll('a')];
 const navSecs = navLinks.map((a) => document.querySelector(a.getAttribute('href')));
 function markNav() {
   const y = innerHeight * 0.4;
   let cur = -1;
   navSecs.forEach((s, k) => { if (s && s.getBoundingClientRect().top <= y) cur = k; });
   // 맨 아래까지 내려오면 마지막(연락처)
-  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = navSecs.length - 1;
-  navLinks.forEach((a, k) => a.classList.toggle('on', k === cur));
+  const de = document.documentElement;
+  if (de.clientHeight + de.scrollTop >= de.scrollHeight - 40 || scrollY + innerHeight >= de.scrollHeight - 40) cur = navSecs.length - 1;
+  navLinks.forEach((a, k) => {
+    const was = a.classList.contains('on');
+    a.classList.toggle('on', k === cur);
+    // 모바일 칩 줄에서 켜진 칩이 화면 밖이면 가로로 살짝 밀어 보여줌
+    if (k === cur && !was && navWrap.scrollWidth > navWrap.clientWidth)
+      navWrap.scrollTo({ left: a.offsetLeft - (navWrap.clientWidth - a.offsetWidth) / 2, behavior: 'smooth' });
+  });
 }
 addEventListener('scroll', markNav, { passive: true }); markNav();
 
