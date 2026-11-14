@@ -1,0 +1,66 @@
+# 브랜치별 포트폴리오를 한 GitHub Pages 사이트로 배포
+#   main         -> https://jin-dooly.github.io/Portfolio/
+#   site/<이름>  -> https://jin-dooly.github.io/Portfolio/<이름>/
+# 어느 브랜치에 푸시하든 모든 브랜치를 다시 모아 한 번에 배포한다.
+name: Deploy portfolio
+
+on:
+  push:
+    branches: [main, 'site/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 브랜치별 사이트 모으기
+        run: |
+          set -euo pipefail
+          # 사이트에 필요한 파일만 복사 (예전 React 포트폴리오 파일은 제외)
+          SITE_FILES="index.html style.css main.js assets .nojekyll"
+
+          export_branch() {
+            local ref="$1" out="$2" tmp
+            mkdir -p "$out"
+            tmp=$(mktemp -d)
+            git archive "$ref" | tar -x -C "$tmp"
+            for f in $SITE_FILES; do
+              if [ -e "$tmp/$f" ]; then cp -r "$tmp/$f" "$out/"; fi
+            done
+            rm -rf "$tmp"
+          }
+
+          export_branch origin/main _site
+          for ref in $(git for-each-ref --format='%(refname:short)' refs/remotes/origin/site/); do
+            name="${ref#origin/site/}"
+            echo "site/$name -> /$name/"
+            export_branch "$ref" "_site/$name"
+          done
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
